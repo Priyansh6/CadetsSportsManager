@@ -1,17 +1,21 @@
 
 jobs:
   reset-job:
-    command: |
-      echo '1'
+    - steps :
+      command: |
+        echo '1'
 
   compile-job:
-    command: |
-      echo '1'
+    - steps:
+      command: |
+        echo '1'
 
   test-job:
-    command: |
-      echo '1'
+    - steps:
+      command: |
+        echo '1'
 
   deploy-heroku-job:
-    command: |
-      dpl --provider=heroku --app=limitless-temple-80750 --api-key=$heroku_key
+    - steps:
+      command: |
+        dpl --provider=heroku --app=limitless-temple-80750 --api-key=$heroku_key
