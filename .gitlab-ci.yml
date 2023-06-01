@@ -15,4 +15,6 @@ test-job:
 deploy-heroku-job:
   stage: deploy
   script:
+    - export PATH="$PATH:$HOME/.rvm/bin"
+    - rvm use 3.2.0
     - dpl --provider=heroku --app=limitless-temple-80750 --api-key=$heroku_key
