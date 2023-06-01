@@ -1,21 +1,12 @@
 
-compile-job:
-  stage: build
-  script:
-    - export PATH="$PATH:$HOME/.rvm/bin"
-    - echo $PATH
-    - rvm use 3.2.0
-    - ruby -v
-    - bundle install
-    - rails -B
 
 test-job:
   stage: test
   script:
-    - sudo export PATH="$PATH:$HOME/.rvm/bin"
-    - sudo rvm use 3.2.0
-    - sudo bundle install
-    - sudo rails test
+    - export PATH="$PATH:$HOME/.rvm/bin"
+    - rvm use 3.2.0
+    - bundle install
+    - rails test
 
 deploy-heroku-job:
   stage: deploy
