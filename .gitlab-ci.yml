@@ -18,4 +18,4 @@ deploy-heroku-job:
     - export PATH="$PATH:$HOME/.rvm/bin"
     - rvm use 3.2.0
     - bundle install
-    - dpl --provider=heroku --app=limitless-temple-80750 --api-key=$heroku_key
+    - sudo dpl --provider=heroku --app=limitless-temple-80750 --api-key=$heroku_key
