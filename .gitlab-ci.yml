@@ -1,0 +1,15 @@
+
+compile-job:
+  stage: build
+  script:
+    - echo '1'
+
+test-job:
+  stage: test
+  script:
+    - echo '1'
+
+deploy-heroku-job:
+  stage: deploy
+  script:
+    - dpl --provider=heroku --app=limitless-temple-80750 --api-key=$heroku_key
