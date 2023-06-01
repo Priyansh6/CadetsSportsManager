@@ -5,6 +5,7 @@ compile-job:
     - export PATH="$PATH:$HOME/.rvm/bin"
     - echo $PATH
     - rvm use 3.2.0
+    - ruby -v
     - sudo bundle install
     - rails -B
 
