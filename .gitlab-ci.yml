@@ -3,6 +3,7 @@ compile-job:
   stage: build
   script:
     - export PATH="$PATH:$HOME/.rvm/bin"
+    - echo $PATH
     - sudo rvm use 3.2.0
     - sudo bundle install
     - rails -B
