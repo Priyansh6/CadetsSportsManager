@@ -1,6 +1,76 @@
+<nav class="navbar is-black" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <h1 class="title" style="color: #EFEFEF">ADMIN - SPORTS PORTAL</h1>
+    </a>
 
-<h3 class="title is-3">Welcome BABBAY</h3>
-<p>
-    The time now is <%= Time.now %> baby
-</p>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/admin-board">
+        Home
+      </a>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-white" href="">
+            <strong>Log out</strong>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<section class="section">
+
+  <div class="columns is-multiline">
+
+
+      <div class="column is-narrow ">
+        <div class="card">
+          <div class="card-content">
+            <%= form_tag '/createEvent' do %>
+            <p class="title">
+              Create new Event
+            </p>
+            <div class="field">
+              <label class="label">Name</label>
+              <div class="control">
+                <input class="input" id="name" name="name" type="text" placeholder="Football">
+              </div>
+            </div>
+              <div class="control">
+                <%= submit_tag 'Create', class: "button is-link is-green" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+    </div>
+
+    <% Event.all.each do |e| %>
+      <div class="column is-narrow" >
+        <div class="card">
+          <div class="card-content">
+            <p class="title">
+              <%= e.name %>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</section>
+
 
