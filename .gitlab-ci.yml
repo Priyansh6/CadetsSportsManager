@@ -12,7 +12,7 @@ test-job:
   stage: test
   script:
     - export PATH="$PATH:$HOME/.rvm/bin"
-    - sudo rvm use 3.2.0
+    - rvm use 3.2.0
     - sudo bundle install
     - rails test
 
