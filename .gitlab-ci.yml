@@ -2,12 +2,14 @@
 compile-job:
   stage: build
   script:
+    - sudo rvm use 3.2.0
     - sudo bundle install
     - rails -B
 
 test-job:
   stage: test
   script:
+    - sudo rvm use 3.2.0
     - sudo bundle install
     - rails test
 
