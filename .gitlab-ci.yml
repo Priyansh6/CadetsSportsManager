@@ -2,12 +2,12 @@
 compile-job:
   stage: build
   script:
-    - echo '1'
+    - rails -B
 
 test-job:
   stage: test
   script:
-    - echo '1'
+    - rails test
 
 deploy-heroku-job:
   stage: deploy
