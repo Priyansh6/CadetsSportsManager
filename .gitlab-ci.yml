@@ -2,6 +2,7 @@
 compile-job:
   stage: build
   script:
+    - source "$HOME/.rvm/scripts/rvm"
     - sudo rvm use 3.2.0
     - sudo bundle install
     - rails -B
@@ -9,6 +10,7 @@ compile-job:
 test-job:
   stage: test
   script:
+    - source "$HOME/.rvm/scripts/rvm"
     - sudo rvm use 3.2.0
     - sudo bundle install
     - rails test
