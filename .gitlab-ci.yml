@@ -2,13 +2,13 @@
 compile-job:
   stage: build
   script:
-    - bundle install
+    - sudo bundle install
     - rails -B
 
 test-job:
   stage: test
   script:
-    - bundle install
+    - sudo bundle install
     - rails test
 
 deploy-heroku-job:
