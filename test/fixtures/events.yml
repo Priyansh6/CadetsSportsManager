@@ -1,7 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  competition: one
+  age_range: one
+  title: MyString
+  competing_category: MyString
 
 two:
-  name: MyString
+  competition: two
+  age_range: two
+  title: MyString
+  competing_category: MyString
