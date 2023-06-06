@@ -11,8 +11,15 @@ test-job:
     - rails db:create
     - rails db:migrate
     - rails test
+  only:
+    refs:
+      - master
+      - dev
 
 deploy-heroku-job:
   stage: deploy
   script:
     - sudo dpl --provider=heroku --app=limitless-temple-80750 --run='rake db:migrate' --api-key=$heroku_key
+  only:
+    refs:
+      - master
