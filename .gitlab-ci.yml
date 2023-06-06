@@ -8,6 +8,7 @@ test-job:
     - bundle install
     - export PORT=5432
     - fuser -k $PORT/tcp || true
+    - rails db:drop
     - rails db:create
     - rails db:migrate
     - rails test
