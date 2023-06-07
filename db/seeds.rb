@@ -70,22 +70,27 @@ jw = AgeRange.create(competition: athletics_comp,
 
 hundered_meters_u15m = Event.create(competition: athletics_comp,
                                     age_range: u15m,
-                                    title: "100m")
+                                    title: "100m",
+                                    capacity: 1)
 
 hundered_meters_u17m = Event.create(competition: athletics_comp,
                                     age_range: u17m,
-                                    title: "100m")
+                                    title: "100m",
+                                    capacity: 1)
 
 hundered_meters_jm = Event.create(competition: athletics_comp,
                                     age_range: jm,
-                                    title: "100m")
+                                    title: "100m",
+                                  capacity: 1)
 
 hundered_meters_u15f = Event.create(competition: athletics_comp,
                                     age_range: u15f,
-                                    title: "100m")
+                                    title: "100m",
+                                    capacity: 1)
 
 hundered_meters_jw = Event.create(competition: athletics_comp,
                                     age_range: jw,
-                                    title: "100m")
+                                    title: "100m",
+                                  capacity: 1)
 
 
