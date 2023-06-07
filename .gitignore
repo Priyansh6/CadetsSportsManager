@@ -35,3 +35,5 @@
 
 # Ignore database schema file
 /db/schema.rb
+Gemfile.lock
+resetDatabase
