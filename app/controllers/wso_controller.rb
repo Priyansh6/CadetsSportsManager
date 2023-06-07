@@ -17,7 +17,7 @@ class WsoController < ApplicationController
                                    location: params[:location])
 
     if @competition.save
-      redirect_to "/wso/competitions/%d" % @competition.id
+      redirect_to "/wso/competitions/edit/%d" % @competition.id
     else
       render :new_competition, status: :unprocessable_entity
     end

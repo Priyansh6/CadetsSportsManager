@@ -1,0 +1,30 @@
+<h1>New Competition</h1>
+
+<%= form_tag "/wso/competitions/create" do %>
+  <div class="field">
+    <label class="label">Title</label>
+    <div class="control">
+      <input class="input" id="title" name="title" type="text" value="<%= @competition.title %>">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Date</label>
+    <div class="control">
+      <input class="input" id="competition_date" name="competition_date" type="date" value="<%= @competition.competition_date %>">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Location</label>
+    <div class="control">
+      <input class="input" id="location" name="location" type="text" value="<%= @competition.location %>">
+    </div>
+  </div>
+
+  <a href = <%= link_to %>>Configure age ranges</a>
+
+  <div class="control">
+    <%= submit_tag "Edit"%>
+  </div>
+<% end %>
