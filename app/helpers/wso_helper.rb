@@ -1,0 +1,2 @@
+module WsoHelper
+end

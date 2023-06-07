@@ -3,14 +3,14 @@
 <ul>
 
   <li>
-    <%= link_to "Create Competition", new_competition_path %>
+    <%= link_to "Create Competition", "/wso/competitions/new" %>
   </li>
 
 
   <% @competitions.each do |competition| %>
     <li>
       <div>
-      <%= link_to competition.title, competition %>
+        <a href="/wso/competitions/<%= competition.id %>"><%= competition.title %></a>
         <p><%= competition.competition_date %></p>
         <p><%= competition.location %></p>
       </div>
