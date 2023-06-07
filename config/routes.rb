@@ -6,4 +6,8 @@ Rails.application.routes.draw do
 
   root 'competitions#index'
   resources :competitions
+
+  get '/sso/competitions', to: 'sso#competitions'
+  get '/sso/:compid/events', to: 'sso#competition_page'
+
 end
