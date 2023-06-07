@@ -1,0 +1,22 @@
+<h1>New Competition</h1>
+
+<%= form_with model: @competition do |form| %>
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :competition_date %><br>
+    <%= form.date_field :competition_date %>
+  </div>
+
+  <div>
+    <%= form.label :location %><br>
+    <%= form.text_field :location %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

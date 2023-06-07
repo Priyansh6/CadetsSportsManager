@@ -1,0 +1,19 @@
+<h1>Competitions</h1>
+
+<ul>
+
+  <li>
+    <%= link_to "Create Competition", new_competition_path %>
+  </li>
+
+
+  <% @competitions.each do |competition| %>
+    <li>
+      <div>
+      <%= link_to competition.title, competition %>
+        <p><%= competition.competition_date %></p>
+        <p><%= competition.location %></p>
+      </div>
+    </li>
+  <% end %>
+</ul>
