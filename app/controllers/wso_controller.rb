@@ -3,15 +3,15 @@ class WsoController < ApplicationController
     @competitions = Competition.all
   end
 
-  def show
+  def show_competition
     @competition = Competition.find(params[:id])
   end
 
-  def new
+  def new_competition
     @competition = Competition.new
   end
 
-  def create
+  def create_competition
     @competition = Competition.new(title: params[:title],
                                    competition_date: params[:competition_date],
                                    location: params[:location])
@@ -19,7 +19,11 @@ class WsoController < ApplicationController
     if @competition.save
       redirect_to "/wso/competitions/%d" % @competition.id
     else
-      render :new, status: :unprocessable_entity
+      render :new_competition, status: :unprocessable_entity
     end
+  end
+
+  def edit_competition
+    @competition = Competition.find(params[:id])
   end
 end
