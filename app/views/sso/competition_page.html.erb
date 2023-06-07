@@ -23,14 +23,21 @@
             <p class="title">
               <%= e.age_range.display_name %> <%= e.title %>
             </p>
-            <p class="subtitle" >
-              <% capacity =  %>
+            <% capacity = e.capacity %>
+            <% curr = CadetRegistration.where(event: e).joins(:cadet).where(cadet: { squadron_id: 1 }).count %>
+            <% if curr == capacity %>
+              <% sub_style = 'color:green;' %>
+            <% else %>
+              <% sub_style = 'color:orange;' %>
+            <% end %>
+            <p class="subtitle is-3" style="<%= sub_style %>" >
+              <%= curr %> / <%= capacity %>
             </p>
           </div>
           <footer class="card-footer">
             <p class="card-footer-item">
               <span>
-                <a href="/sso/events">View</a>
+                <a href="/sso/event/<%=e.id%>">View</a>
               </span>
             </p>
           </footer>

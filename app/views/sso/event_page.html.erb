@@ -1,0 +1,108 @@
+
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">
+      <%= @event.title %> <%= @event.age_range.display_name %>
+    </p>
+    <% curr = CadetRegistration.where(event: @event).joins(:cadet).where(cadet: { squadron_id: 1 }).count %>
+    <p class="subtitle">
+      Capacity: <%= @event.capacity %> / <%= curr %>
+    </p>
+  </div>
+</section>
+
+<section class="section">
+
+  <p class="title">
+    REGISTERED:
+  </p>
+
+  <% @registered.each do |r| %>
+
+    <nav class="level">
+      <div class="level-left">
+
+        <%= render 'sso/helpers/cadet_info_as_level_items', c:r.cadet %>
+
+        <div class="level-item" >
+          <a class='button is-danger is-outlined' href="sso/remove-cadet/<%= r.event_id %>/<%= r.cadet.id %>">
+            <span>Delete</span>
+            <span class='icon is-small'>
+                  &#x2715
+          </span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+  <% end %>
+
+</section>
+
+<section class="section">
+
+  <p class="title">
+    INTERESTED:
+  </p>
+
+  <% @interested.each do |r| %>
+
+    <nav class="level">
+      <div class="level-left">
+
+        <%= render 'sso/helpers/cadet_info_as_level_items', c:r.cadet %>
+
+        <div class="level-item" >
+          <a class='button is-danger is-outlined' href="sso/remove-cadet/<%= r.event_id %>/<%= r.cadet.id %>">
+            <span>Delete</span>
+            <span class='icon is-small'>
+                  &#x2715
+          </span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+  <% end %>
+
+</section>
+
+<section class="section">
+
+  <p class="title">
+    AVAILABLE:
+  </p>
+
+  <% @available.each do |a| %>
+
+    <nav class="level">
+      <div class="level-left">
+
+        <%= render 'sso/helpers/cadet_info_as_level_items', c:a %>
+
+        <div class="level-item" >
+          <a class='button is-success is-outlined' href="sso/remove-cadet/">
+            <span>Register</span>
+            <span class='icon is-small'>
+                  &#x2713
+          </span>
+          </a>
+        </div>
+        <div class="level-item" >
+          <a class='button is-info is-outlined' href="sso/remove-cadet/">
+            <span>Interested</span>
+            <span class='icon is-small'>
+                  &#x2713
+          </span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+  <% end %>
+
+</section>
+
+
+
+
