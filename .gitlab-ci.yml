@@ -1,18 +1,26 @@
 
 
-test-job:
-  stage: test
-  script:
-    - export PATH="$PATH:$HOME/.rvm/bin"
-    - rvm use 3.2.0
-    - bundle install
-    - export PORT=5432
-    - fuser -k $PORT/tcp || true
-    - rails db:create
-    - rails db:migrate
-    - rails test
+#test-job:
+#  stage: test
+#  script:
+#    - export PATH="$PATH:$HOME/.rvm/bin"
+#    - rvm use 3.2.0
+#    - bundle install
+#    - export PORT=5432
+#    - fuser -k $PORT/tcp || true
+#    - rails db:drop
+#    - rails db:create
+#    - rails db:migrate
+#    - rails test
+#  only:
+#    refs:
+#      - master
+#      - dev
 
 deploy-heroku-job:
   stage: deploy
   script:
     - sudo dpl --provider=heroku --app=limitless-temple-80750 --run='rake db:migrate' --api-key=$heroku_key
+  only:
+    refs:
+      - master

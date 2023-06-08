@@ -1,0 +1,128 @@
+
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">
+      <%= @event.title %> <%= @event.age_range.display_name %>
+    </p>
+    <% curr = CadetRegistration.where(event: @event).joins(:cadet).where(cadet: { squadron_id: 1 }).count %>
+    <p class="subtitle">
+      Capacity: <%= @event.capacity %> / <%= curr %>
+    </p>
+  </div>
+</section>
+
+<section class="section">
+
+  <p class="title">
+    REGISTERED:
+  </p>
+
+  <% @registered.each do |r| %>
+
+    <nav class="level">
+      <div class="level-left">
+
+        <%= render 'sso/helpers/cadet_info_as_level_items', c:r.cadet %>
+
+        <div class="level-item" >
+          <%= form_tag "/sso/unregister-cadet/" + r.event_id.to_s + "/" + r.cadet.id.to_s + "/" do %>
+            <%= submit_tag "Remove", class: "button is-danger is-outlined", onClick: "refreshPage()" %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+
+  <% end %>
+
+</section>
+
+<section class="section">
+
+  <p class="title">
+    INTERESTED:
+  </p>
+
+  <% @interested.each do |r| %>
+
+    <nav class="level">
+      <div class="level-left">
+
+        <%= render 'sso/helpers/cadet_info_as_level_items', c:r.cadet %>
+
+        <div class="level-item" >
+          <div class="level-item" >
+            <%= form_tag "/sso/register-cadet/" + @event.id.to_s + "/" + r.cadet.id.to_s + "/" do %>
+              <%= submit_tag "Register", class: "button is-success is-outlined", onClick: "refreshPage()" %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="level-item" >
+          <div class="level-item" >
+            <%= form_tag "/sso/uninterested-cadet/" + @event.id.to_s + "/" + r.cadet.id.to_s + "/" do %>
+              <%= submit_tag "Uninterested", class: "button is-danger is-outlined", onClick: "refreshPage()" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  <% end %>
+
+</section>
+
+<section class="section">
+
+  <p class="title">
+    AVAILABLE:
+  </p>
+
+  <% @available.each do |a| %>
+
+    <nav class="level">
+      <div class="level-left">
+
+        <%= render 'sso/helpers/cadet_info_as_level_items', c:a %>
+
+        <div class="level-item" >
+          <div class="level-item" >
+            <%= form_tag "/sso/register-cadet/" + @event.id.to_s + "/" + a.id.to_s + "/" do %>
+              <%= submit_tag "Register", class: "button is-success is-outlined", onClick: "refreshPage()" %>
+            <% end %>
+          </div>
+        </div>
+
+
+        <div class="level-item" >
+          <div class="level-item" >
+            <%= form_tag "/sso/interested-cadet/" + @event.id.to_s + "/" + a.id.to_s + "/" do %>
+              <%= submit_tag "Interested", class: "button is-info is-outlined", onClick: "refreshPage()" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  <% end %>
+</section>
+
+
+<script>
+    // sleep time expects milliseconds
+    function sleep (time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
+    // Usage!
+
+
+    function refreshPage(){
+        sleep(200).then(() => {
+            window.location.reload();
+        });
+
+    }
+</script>
+
+
+

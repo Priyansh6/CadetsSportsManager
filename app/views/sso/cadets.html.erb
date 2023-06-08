@@ -1,0 +1,110 @@
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">
+      Cadets
+    </p>
+    <p class="subtitle">
+      Bellow are all your active cadets
+    </p>
+  </div>
+</section>
+
+<section class="section">
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>DOB</th>
+      <th>CID</th>
+      <th>Competing Category</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <%= form_tag "/sso/cadet-create/" do %>
+      <tr>
+        <td>
+          <input class="input" name="firstname" type="text" value="">
+        </td>
+        <td >
+          <input class="input" name="lastname" type="text" value="">
+        </td>
+        <td>
+          <input class="input" type="date" id="dob" name="dob" required pattern="\d{4}-\d{2}-\d{2}" value="" />
+        </td>
+        <td >
+          <input class="input" name="cid" type="text" value="">
+        </td>
+        <td>
+          <input class="input" name="competing_category" type="text" value="">
+        </td>
+        <td>
+          <%= submit_tag "Create", class: "button is-info is-outlined", onClick: "refreshPage()" %>
+        </td>
+    </tr>
+    <% end %>
+
+
+
+    <% @cadets.each do |c| %>
+    <%= form_tag "/sso/cadet-update/" + c.id.to_s do %>
+
+
+
+      <tr>
+        <td>
+          <input class="input" name="firstname" type="text" value="<%= c.firstname %>">
+        </td>
+        <td >
+          <input class="input" name="lastname" type="text" value="<%= c.lastname %>">
+        </td>
+        <td>
+          <input class="input" type="date" id="dob" name="dob" required pattern="\d{4}-\d{2}-\d{2}" value="<%= c.dob.strftime("%Y-%m-%d") %>" />
+        </td>
+        <td >
+          <input class="input" name="caid" type="text" value="<%= c.cid %>">
+        </td>
+        <td>
+          <input class="input" name="competing_category" type="text" value="<%= c.competing_category %>">
+        </td>
+        <td>
+          <%= submit_tag "Update", class: "button is-info is-outlined", onClick: "refreshPage()" %>
+        </td>
+      <% end %>
+        <td>
+          <%= form_tag "/sso/cadet-delete/" + c.id.to_s  do %>
+            <%= submit_tag "Delete", class: "button is-danger is-outlined", onClick: "refreshPage()" %>
+          <% end %>
+        </td>
+      </tr>
+
+
+
+  <% end %>
+
+    </tbody>
+
+  </table>
+
+</section>
+
+<script>
+    // sleep time expects milliseconds
+    function sleep (time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
+    // Usage!
+
+
+    function refreshPage(){
+        sleep(200).then(() => {
+            window.location.reload();
+        });
+
+    }
+</script>

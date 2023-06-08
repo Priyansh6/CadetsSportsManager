@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  competition_date: 2023-06-06
+  location: MyString
+  minimum_age: 1
+  locked: false
+
+two:
+  title: MyString
+  competition_date: 2023-06-06
+  location: MyString
+  minimum_age: 1
+  locked: false

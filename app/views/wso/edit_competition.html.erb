@@ -1,0 +1,88 @@
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">
+      Edit Competition
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <%= form_tag "/wso/competitions/edit" do %>
+    <div class="columns">
+      <div class="column is-three-quarters">
+        <div class="field">
+          <label class="label">Competition Name</label>
+          <div class="control">
+            <input class="input" id="title" name="title" type="text" value="<%= @competition.title %>">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Date</label>
+          <div class="control">
+            <input class="input" id="competition_date" name="competition_date" type="date" value="<%= @competition.competition_date %>">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Location</label>
+          <div class="control">
+            <input class="input" id="location" name="location" type="text" value="<%= @competition.location %>">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Multi-event Competition?</label>
+          <div class="control">
+            <label class="radio">
+              <input type="radio" name="answer" onclick="displaySingleEvent()">
+              No
+            </label>
+            <label class="radio">
+              <input type="radio" name="answer" onclick="displayMultiEvents()">
+              Yes
+            </label>
+          </div>
+        </div>
+
+        <%= render 'wso/event_creation' %>
+        <div class="columns is-multiline" id="event-cards">
+          <div class="column is-narrow">
+            <div class="card">
+              <div class="card-content">
+                <%= link_to "+ Create Event", "/wso/competitions/new-event" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="control">
+          <a class="button is-link" href="/wso/competitions/<%=@competition.id%>/age-ranges/edit">Edit Age Ranges</a>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="control">
+          <button class="button is-link">Publish</button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</section>
+
+<script>
+  document.getElementById("event-cards").style.display = "none";
+  document.getElementById("event-creation-box").style.display = "none";
+
+  function displaySingleEvent() {
+      document.getElementById("event-cards").style.display = "none";
+      document.getElementById("event-creation-box").style.display = "block";
+  }
+
+  function displayMultiEvents() {
+      document.getElementById("event-cards").style.display = "inline-block";
+      document.getElementById("event-creation-box").style.display = "none";
+  }
+</script>

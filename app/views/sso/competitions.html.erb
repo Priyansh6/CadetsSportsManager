@@ -1,0 +1,53 @@
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">
+      Welcome SSO <%= Squadron.where(id: 1).first.name %>
+    </p>
+    <p class="subtitle">
+      Bellow are all your active competitions
+    </p>
+  </div>
+</section>
+
+<section class="section">
+
+  <a class="button is-large is-info" href="/sso/cadets">+ Add Cadets</a>
+
+</section>
+
+ <hr>
+
+<section class="section">
+
+  <div class="columns is-multiline">
+
+    <% @competitions.each do |c| %>
+
+      <div class="column is-narrow ">
+        <div class="card">
+          <div class="card-content">
+            <p class="title">
+              <%= c.title %>
+            </p>
+            <p class="subtitle">
+              Date: <%= c.competition_date.to_s %>
+            </p>
+            <p class="subtitle">
+              Location: <%= c.location %>
+            </p>
+          </div>
+          <footer class="card-footer">
+            <p class="card-footer-item">
+              <span>
+                <a href="/sso/<%= c.id %>/events">View</a>
+              </span>
+            </p>
+          </footer>
+        </div>
+      </div>
+
+    <% end %>
+
+  </div>
+
+</section>

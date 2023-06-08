@@ -2,12 +2,12 @@
 
 one:
   competition: one
-  age_range: one
-  title: MyString
-  competing_category: MyString
+  before: 2023-06-06
+  after: 2023-06-06
+  display_name: MyString
 
 two:
   competition: two
-  age_range: two
-  title: MyString
-  competing_category: MyString
+  before: 2023-06-06
+  after: 2023-06-06
+  display_name: MyString
