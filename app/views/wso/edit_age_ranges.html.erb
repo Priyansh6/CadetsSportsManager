@@ -1,86 +1,107 @@
-<h1>Age Ranges</h1>
-
-<%= form_tag ("/wso/competitions/%d/age-ranges/save" % @competition.id) %>
-<div class="field">
-  <label class="label">Minimum Age</label>
-  <div class="control">
-    <input class="input" id="min-age" name="min_age" type="number">
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">
+      Age Ranges
+    </p>
   </div>
-</div>
+</section>
 
-<div class="control">
-  <%= submit_tag "Save", onClick: "refreshPage()"%>
-</div>
+<section class="section">
+    <%= form_tag ("/wso/competitions/%d/age-ranges/save" % @competition.id) %>
+    <div class="columns">
+      <div class="column is-four-fifths">
+        <div class="field">
+          <label class="label">Minimum Age</label>
+          <div class="control">
+            <input class="input" id="min-age" name="min_age" type="number">
+          </div>
+        </div>
 
-<div class="field">
-    <table class="table" id="age-range-table">
-      <thead>
-        <tr>
-          <th>Category Name</th>
-          <th>Competing Category</th>
-          <th>Maximum Age</th>
-          <th>Cutoff Date</th>
-        </tr>
-      </thead>
-      <tbody id="age-range-tbody">
-        <tr>
-          <td>
-            <input class="input" id="cat-name-entry" name="cat_name_entry" type="text">
-          </td>
-          <td>
-<!--            <div class="select">-->
-<!--                <select id="competing-cat-entry" name="competing_cat_entry">-->
-<!--                  <option value="male">Male</option>-->
-<!--                  <option value="female">Female</option>-->
-<!--                </select>-->
-<!--            </div>-->
-            <input class="input" id="competing-cat-entry" name="competing_cat_entry" type="text">
-          </td>
-          <td>
-            <input class="input" id="max-age-entry" name="max_age_entry" type="number">
-          </td>
-          <td>
-            <input class="input" id="cutoff-date-entry" name="cutoff_date_entry" type="date">
-          </td>
-          <td>
-            <div class="button" id="add-range-button" onclick="addRow()">
-              Add
+        <div class="box">
+            <div class="field">
+                <table class="table is-fullwidth" id="age-range-table">
+                  <thead>
+                    <tr>
+                      <th>Category Name</th>
+                      <th>Competing Category</th>
+                      <th>Maximum Age</th>
+                      <th>Cutoff Date</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="age-range-tbody">
+                    <tr>
+                      <td>
+                        <input class="input" id="cat-name-entry" name="cat_name_entry" type="text">
+                      </td>
+                      <td>
+            <!--            <div class="select">-->
+            <!--                <select id="competing-cat-entry" name="competing_cat_entry">-->
+            <!--                  <option value="male">Male</option>-->
+            <!--                  <option value="female">Female</option>-->
+            <!--                </select>-->
+            <!--            </div>-->
+                        <input class="input" id="competing-cat-entry" name="competing_cat_entry" type="text">
+                      </td>
+                      <td>
+                        <input class="input" id="max-age-entry" name="max_age_entry" type="number">
+                      </td>
+                      <td>
+                        <input class="input" id="cutoff-date-entry" name="cutoff_date_entry" type="date">
+                      </td>
+                      <td>
+                        <div class="button" id="add-range-button" onclick="addRow()">
+                          Add
+                        </div>
+                      </td>
+                    </tr>
+                    <% counter = 2 %>
+                    <% AgeRange.all.where(competition: @competition).each do |ag| %>
+                        <tr>
+                          <td>
+                            <input class="input cat-name" id="cat-name-entry-<%= counter %>" name="cat_name_entry_<%= counter %>" type="text" value="<%= ag.display_name %>">
+                          </td>
+                          <td>
+                            <!--            <div class="select">-->
+                            <!--                <select id="competing-cat-entry" name="competing_cat_entry">-->
+                            <!--                  <option value="male">Male</option>-->
+                            <!--                  <option value="female">Female</option>-->
+                            <!--                </select>-->
+                            <!--            </div>-->
+                            <input class="input competing-cat" id="competing-cat-entry-<%= counter %>" name="competing_cat_entry_<%= counter %>" type="text" value="<%= ag.competing_category %>">
+                          </td>
+                          <td>
+                            <input class="input max-age" id="max-age-entry-<%= counter %>" name="max_age_entry_<%= counter %>" type="number" value="<%= Date.today.year - ag.after.year %>">
+                          </td>
+                          <td>
+                            <input class="input cutoff-date" id="cutoff-date-entry-<%= counter %>" name="cutoff_date_entry_<%= counter %>" type="date" value="<%= (ag.after + (Date.today.year - ag.after.year).year).strftime("%Y-%m-%d") %>">
+                          </td>
+                          <td>
+                            <div class="button remove-button" id="remove-button-<%= counter %>" onclick="deleteRow(<%= counter %>)">
+                              Delete
+                            </div>
+                          </td>
+                        </tr>
+                      <% counter += 1 %>
+                    <% end %>
+                  </tbody>
+                </table>
             </div>
-          </td>
-        </tr>
-        <% counter = 2 %>
-        <% AgeRange.all.where(competition: @competition).each do |ag| %>
-            <tr>
-              <td>
-                <input class="input cat-name" id="cat-name-entry-<%= counter %>" name="cat_name_entry_<%= counter %>" type="text" value="<%= ag.display_name %>">
-              </td>
-              <td>
-                <!--            <div class="select">-->
-                <!--                <select id="competing-cat-entry" name="competing_cat_entry">-->
-                <!--                  <option value="male">Male</option>-->
-                <!--                  <option value="female">Female</option>-->
-                <!--                </select>-->
-                <!--            </div>-->
-                <input class="input competing-cat" id="competing-cat-entry-<%= counter %>" name="competing_cat_entry_<%= counter %>" type="text" value="<%= ag.competing_category %>">
-              </td>
-              <td>
-                <input class="input max-age" id="max-age-entry-<%= counter %>" name="max_age_entry_<%= counter %>" type="number" value="<%= Date.today.year - ag.after.year %>">
-              </td>
-              <td>
-                <input class="input cutoff-date" id="cutoff-date-entry-<%= counter %>" name="cutoff_date_entry_<%= counter %>" type="date" value="<%= (ag.after + (Date.today.year - ag.after.year).year).strftime("%Y-%m-%d") %>">
-              </td>
-              <td>
-                <div class="button remove-button" id="remove-button-<%= counter %>" onclick="deleteRow(<%= counter %>)">
-                  Delete
-                </div>
-              </td>
-            </tr>
-          <% counter += 1 %>
-        <% end %>
-      </tbody>
-    </table>
-</div>
-<input type="hidden" id="ranges-length" name="ranges_length">
+        </div>
+      </div>
+
+
+      <div class="column">
+          <div class="control">
+<!--            <button class="button is-link">-->
+                <input type="submit" class="button is-link" value="Save" onclick="refreshPage()" name="commit" data-disable-with="Save">
+                <%#= submit_tag "Save", onClick: "refreshPage()"%>
+<!--            </button>-->
+          </div>
+      </div>
+    </div>
+    <input type="hidden" id="ranges-length" name="ranges_length">
+</section>
 
 <script>
     var n = 0;
