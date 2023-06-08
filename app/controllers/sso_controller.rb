@@ -14,11 +14,11 @@ class SsoController < ApplicationController
     @interested = CadetInterest.joins(:cadet).where(event: @event)
                                .where(cadet: {squadron_id: 1})
                                .where.not(cadet_id: @registered.select(:cadet_id)).distinct
-    @date_range = @event.age_range.before..@event.age_range.after
-    @available  = Cadet.where(squadron_id: 1)
-                   .where(dob: @date_range)
-                   .where(competing_category: @event.age_range.competing_category)
-                   .where.not(id: @interested.select(:cadet_id)).distinct
+    @date_range = @event.age_range.after...@event.age_range.before
+    @available  = Cadet.all
+                  .where(dob: @date_range)
+                       .where(competing_category: @event.age_range.competing_category)
+                   .where.not(id: @interested.select(:cadet_id))
                    .where.not(id: @registered.select(:cadet_id)).distinct
 
   end
