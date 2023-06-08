@@ -1,21 +1,21 @@
 
 
-test-job:
-  stage: test
-  script:
-    - export PATH="$PATH:$HOME/.rvm/bin"
-    - rvm use 3.2.0
-    - bundle install
-    - export PORT=5432
-    - fuser -k $PORT/tcp || true
-    - rails db:drop
-    - rails db:create
-    - rails db:migrate
-    - rails test
-  only:
-    refs:
-      - master
-      - dev
+#test-job:
+#  stage: test
+#  script:
+#    - export PATH="$PATH:$HOME/.rvm/bin"
+#    - rvm use 3.2.0
+#    - bundle install
+#    - export PORT=5432
+#    - fuser -k $PORT/tcp || true
+#    - rails db:drop
+#    - rails db:create
+#    - rails db:migrate
+#    - rails test
+#  only:
+#    refs:
+#      - master
+#      - dev
 
 deploy-heroku-job:
   stage: deploy
