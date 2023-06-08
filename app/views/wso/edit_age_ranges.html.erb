@@ -24,9 +24,9 @@
       </thead>
       <tbody id="age-range-tbody">
         <tr>
-<!--          <td>-->
-<!--            <input class="input" id="cat-name-entry" name="cat_name_entry" type="text">-->
-<!--          </td>-->
+          <td>
+            <input class="input" id="cat-name-entry" name="cat_name_entry" type="text">
+          </td>
           <td>
 <!--            <div class="select">-->
 <!--                <select id="competing-cat-entry" name="competing_cat_entry">-->
@@ -65,6 +65,17 @@
         let c2 = document.createElement("td");
         let c3 = document.createElement("td");
         let c4 = document.createElement("td");
+        let c5 = document.createElement("td");
+
+        let curr_cat_name = document.getElementById("cat-name-entry");
+        let cat_name = document.createElement("input")
+        cat_name.setAttribute("id", "cat-name-entry-" + row.rowIndex);
+        cat_name.setAttribute("class", "input cat-name");
+        cat_name.setAttribute("name", "cat_name_entry_" + row.rowIndex);
+        cat_name.setAttribute("type", "input");
+        cat_name.value = curr_cat_name.value;
+        curr_cat_name.value = "";
+        c1.appendChild(cat_name);
 
         let curr_competing_cat = document.getElementById("competing-cat-entry");
         let competing_cat = document.createElement("input")
@@ -74,7 +85,7 @@
         competing_cat.setAttribute("type", "input");
         competing_cat.value = curr_competing_cat.value;
         curr_competing_cat.value = "";
-        c1.appendChild(competing_cat);
+        c2.appendChild(competing_cat);
 
         let curr_max_age = document.getElementById("max-age-entry");
         let max_age = document.createElement("input")
@@ -84,7 +95,7 @@
         max_age.setAttribute("type", "number");
         max_age.value = curr_max_age.value;
         curr_max_age.value = "";
-        c2.appendChild(max_age);
+        c3.appendChild(max_age);
 
         let curr_cutoff_date = document.getElementById("cutoff-date-entry");
         let cutoff_date = document.createElement("input")
@@ -94,20 +105,21 @@
         cutoff_date.setAttribute("type", "date");
         cutoff_date.value = curr_cutoff_date.value;
         curr_cutoff_date.value = "";
-        c3.appendChild(cutoff_date);
+        c4.appendChild(cutoff_date);
 
         let remove_button = document.createElement("div")
         remove_button.setAttribute("id", "remove-button-" + row.rowIndex);
         remove_button.setAttribute("class", "button remove-button");
         remove_button.setAttribute("onclick", "deleteRow(" + row.rowIndex + ")")
         remove_button.innerText = "Delete"
-        c4.appendChild(remove_button);
+        c5.appendChild(remove_button);
 
         // Append cells to row
         row.appendChild(c1);
         row.appendChild(c2);
         row.appendChild(c3);
         row.appendChild(c4);
+        row.appendChild(c5);
 
         // Append row to table body
         table.appendChild(row);
@@ -119,6 +131,10 @@
         let table = document.getElementById("age-range-tbody");
         for (let i = 1; i < table.rows.length; i++) {
             let row = table.rows[i];
+
+            let cat_name = row.querySelector(".cat-name");
+            cat_name.setAttribute("id", "cat-name-" + row.rowIndex);
+            cat_name.setAttribute("name", "cat_name_" + row.rowIndex);
 
             let competing_cat = row.querySelector(".competing-cat");
             competing_cat.setAttribute("id", "competing-cat-entry-" + row.rowIndex);
