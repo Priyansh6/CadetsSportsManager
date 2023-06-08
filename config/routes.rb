@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-<<<<<<< HEAD
   root 'wso#index'
 
   get "/wso", to: "wso#index"
@@ -14,9 +13,6 @@ Rails.application.routes.draw do
   get "/wso/competitions/edit/:id", to: "wso#edit_competition"
   get "/wso/competitions/:id/age-ranges/edit", to: "wso#edit_age_ranges"
   post "/wso/competitions/:id/age-ranges/save", to: "wso#save_age_ranges"
-=======
-  root 'competitions#index'
-  resources :competitions
 
   get '/sso/competitions', to: 'sso#competitions'
   get '/sso/:compid/events', to: 'sso#competition_page'
@@ -32,6 +28,4 @@ Rails.application.routes.draw do
   post '/sso/cadet-update/:cid', to: 'sso#cadet_update'
   post '/sso/cadet-delete/:cid', to: 'sso#cadet_delete'
 
-
->>>>>>> view-competition
 end
