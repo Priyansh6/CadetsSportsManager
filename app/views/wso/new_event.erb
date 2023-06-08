@@ -1,0 +1,29 @@
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">
+      New Event
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <%= form_tag "/wso/competitions/new_event" do %>
+    <div class="columns">
+      <div class="column is-three-quarters">
+        <div class="field">
+          <label class="label">Event Name</label>
+          <div class="control">
+            <input class="input" id="event_title" name="event_title" type="text" value="">
+          </div>
+        </div>
+        <%= render 'wso/event_creation' %>
+      </div>
+
+      <div class="column">
+        <div class="control">
+          <button class="button is-link">Save</button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</section>
