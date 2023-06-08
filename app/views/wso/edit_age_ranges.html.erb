@@ -1,0 +1,147 @@
+<h1>Age Ranges</h1>
+
+<%= form_tag ("/wso/competitions/%d/age-ranges/save" % @competition.id) %>
+<div class="field">
+  <label class="label">Minimum Age</label>
+  <div class="control">
+    <input class="input" id="min-age" name="min_age" type="number">
+  </div>
+</div>
+
+<div class="control">
+  <%= submit_tag "Save"%>
+</div>
+
+<div class="field">
+    <table class="table" id="age-range-table">
+      <thead>
+        <tr>
+          <th>Category Name</th>
+          <th>Competing Category</th>
+          <th>Maximum Age</th>
+          <th>Cutoff Date</th>
+        </tr>
+      </thead>
+      <tbody id="age-range-tbody">
+        <tr>
+<!--          <td>-->
+<!--            <input class="input" id="cat-name-entry" name="cat_name_entry" type="text">-->
+<!--          </td>-->
+          <td>
+<!--            <div class="select">-->
+<!--                <select id="competing-cat-entry" name="competing_cat_entry">-->
+<!--                  <option value="male">Male</option>-->
+<!--                  <option value="female">Female</option>-->
+<!--                </select>-->
+<!--            </div>-->
+            <input class="input" id="competing-cat-entry" name="competing_cat_entry" type="text">
+          </td>
+          <td>
+            <input class="input" id="max-age-entry" name="max_age_entry" type="number">
+          </td>
+          <td>
+            <input class="input" id="cutoff-date-entry" name="cutoff_date_entry" type="date">
+          </td>
+          <td>
+            <div class="button" id="add-range-button" onclick="addRow()">
+              Add
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<input type="hidden" id="ranges-length" name="ranges_length">
+
+<script>
+    var n = 0;
+    function addRow() {
+        let table = document.getElementById("age-range-tbody");
+
+        let row = table.insertRow(-1); // We are adding at the end
+
+        // Create table cells
+        let c1 = document.createElement("td");
+        let c2 = document.createElement("td");
+        let c3 = document.createElement("td");
+        let c4 = document.createElement("td");
+
+        let curr_competing_cat = document.getElementById("competing-cat-entry");
+        let competing_cat = document.createElement("input")
+        competing_cat.setAttribute("id", "competing-cat-entry-" + row.rowIndex);
+        competing_cat.setAttribute("class", "input competing-cat");
+        competing_cat.setAttribute("name", "competing_cat_entry_" + row.rowIndex);
+        competing_cat.setAttribute("type", "input");
+        competing_cat.value = curr_competing_cat.value;
+        curr_competing_cat.value = "";
+        c1.appendChild(competing_cat);
+
+        let curr_max_age = document.getElementById("max-age-entry");
+        let max_age = document.createElement("input")
+        max_age.setAttribute("id", "max-age-entry-" + row.rowIndex);
+        max_age.setAttribute("class", "input max-age");
+        max_age.setAttribute("name", "max_age_entry_" + row.rowIndex);
+        max_age.setAttribute("type", "number");
+        max_age.value = curr_max_age.value;
+        curr_max_age.value = "";
+        c2.appendChild(max_age);
+
+        let curr_cutoff_date = document.getElementById("cutoff-date-entry");
+        let cutoff_date = document.createElement("input")
+        cutoff_date.setAttribute("id", "cutoff-date-entry-" + row.rowIndex);
+        cutoff_date.setAttribute("class", "input cutoff-date");
+        cutoff_date.setAttribute("name", "cutoff_date_entry_" + row.rowIndex);
+        cutoff_date.setAttribute("type", "date");
+        cutoff_date.value = curr_cutoff_date.value;
+        curr_cutoff_date.value = "";
+        c3.appendChild(cutoff_date);
+
+        let remove_button = document.createElement("div")
+        remove_button.setAttribute("id", "remove-button-" + row.rowIndex);
+        remove_button.setAttribute("class", "button remove-button");
+        remove_button.setAttribute("onclick", "deleteRow(" + row.rowIndex + ")")
+        remove_button.innerText = "Delete"
+        c4.appendChild(remove_button);
+
+        // Append cells to row
+        row.appendChild(c1);
+        row.appendChild(c2);
+        row.appendChild(c3);
+        row.appendChild(c4);
+
+        // Append row to table body
+        table.appendChild(row);
+        n++;
+        document.getElementById("ranges-length").value = n;
+    }
+
+    function resetRowIndexes() {
+        let table = document.getElementById("age-range-tbody");
+        for (let i = 1; i < table.rows.length; i++) {
+            let row = table.rows[i];
+
+            let competing_cat = row.querySelector(".competing-cat");
+            competing_cat.setAttribute("id", "competing-cat-entry-" + row.rowIndex);
+            competing_cat.setAttribute("name", "competing_cat_entry_" + row.rowIndex);
+
+            let max_age = row.querySelector(".max-age");
+            max_age.setAttribute("id", "max-age-entry-" + row.rowIndex);
+            max_age.setAttribute("name", "max_age_entry_" + row.rowIndex);
+
+            let cutoff_date = row.querySelector(".cutoff-date")
+            cutoff_date.setAttribute("id", "cutoff-date-entry-" + row.rowIndex);
+            cutoff_date.setAttribute("name", "cutoff_date_entry_" + row.rowIndex);
+
+            let remove_button = row.querySelector(".remove-button")
+            remove_button.setAttribute("id", "remove-button-" + row.rowIndex);
+            remove_button.setAttribute("onclick", "deleteRow(" + row.rowIndex + ")")
+        }
+    }
+
+    function deleteRow(idx) {
+        document.getElementById("age-range-table").deleteRow(idx);
+        n--;
+        document.getElementById("ranges-length").value = n;
+        resetRowIndexes();
+    }
+</script>

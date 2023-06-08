@@ -10,7 +10,7 @@
   <% @competitions.each do |competition| %>
     <li>
       <div>
-        <a href="/wso/competitions/<%= competition.id %>"><%= competition.title %></a>
+        <a href="/wso/competitions/edit/<%= competition.id %>"><%= competition.title %></a>
         <p><%= competition.competition_date %></p>
         <p><%= competition.location %></p>
       </div>

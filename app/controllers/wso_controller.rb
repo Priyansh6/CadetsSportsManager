@@ -3,10 +3,6 @@ class WsoController < ApplicationController
     @competitions = Competition.all
   end
 
-  def show_competition
-    @competition = Competition.find(params[:id])
-  end
-
   def new_competition
     @competition = Competition.new
   end
@@ -26,4 +22,24 @@ class WsoController < ApplicationController
   def edit_competition
     @competition = Competition.find(params[:id])
   end
+
+  def edit_age_ranges
+    @competition = Competition.find(params[:id])
+  end
+
+  def save_age_ranges
+    @competition = Competition.find(params[:id])
+    n = params[:ranges_length]
+    (1..n).each { |i|
+      age_range = AgeRange.new(competition: @competition,
+                               competing_category: params[("competing_cat_entry_" + i).to_sym],
+                               before: ,
+                               after: ,
+                               display_name: "something")
+      age_range.save
+    }
+  end
+
+  private
+
 end
