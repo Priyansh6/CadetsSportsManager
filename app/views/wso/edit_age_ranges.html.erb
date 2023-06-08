@@ -9,7 +9,7 @@
 </div>
 
 <div class="control">
-  <%= submit_tag "Save"%>
+  <%= submit_tag "Save", onClick: "refreshPage()"%>
 </div>
 
 <div class="field">
@@ -48,6 +48,35 @@
             </div>
           </td>
         </tr>
+        <% counter = 2 %>
+        <% AgeRange.all.where(competition: @competition).each do |ag| %>
+            <tr>
+              <td>
+                <input class="input cat-name" id="cat-name-entry-<%= counter %>" name="cat_name_entry_<%= counter %>" type="text" value="<%= ag.display_name %>">
+              </td>
+              <td>
+                <!--            <div class="select">-->
+                <!--                <select id="competing-cat-entry" name="competing_cat_entry">-->
+                <!--                  <option value="male">Male</option>-->
+                <!--                  <option value="female">Female</option>-->
+                <!--                </select>-->
+                <!--            </div>-->
+                <input class="input competing-cat" id="competing-cat-entry-<%= counter %>" name="competing_cat_entry_<%= counter %>" type="text" value="<%= ag.competing_category %>">
+              </td>
+              <td>
+                <input class="input max-age" id="max-age-entry-<%= counter %>" name="max_age_entry_<%= counter %>" type="number" value="<%= Date.today.year - ag.after.year %>">
+              </td>
+              <td>
+                <input class="input cutoff-date" id="cutoff-date-entry-<%= counter %>" name="cutoff_date_entry_<%= counter %>" type="date" value="<%= (ag.after + (Date.today.year - ag.after.year).year).strftime("%Y-%m-%d") %>">
+              </td>
+              <td>
+                <div class="button remove-button" id="remove-button-<%= counter %>" onclick="deleteRow(<%= counter %>)">
+                  Delete
+                </div>
+              </td>
+            </tr>
+          <% counter += 1 %>
+        <% end %>
       </tbody>
     </table>
 </div>
@@ -159,5 +188,9 @@
         n--;
         document.getElementById("ranges-length").value = n;
         resetRowIndexes();
+    }
+
+    function refreshPage() {
+        window.location.reload();
     }
 </script>

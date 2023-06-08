@@ -38,34 +38,34 @@ athletics_comp = Competition.create(title: "Athletics",
                                     locked: false)
 
 u15m = AgeRange.create(competition: athletics_comp,
-                       before: Date.new(2023, 8, 31) - 15.years,
-                       after: Date.new(2023, 8, 31),
+                       after: Date.new(2023, 8, 31) - 15.years,
+                       before: Date.new(2023, 8, 31),
                        competing_category: "male",
                        display_name: "Under 15s Boys")
 
 u17m = AgeRange.create(competition: athletics_comp,
-                       before: Date.new(2023, 8, 31) - 17.years,
-                       after: Date.new(2023, 8, 31) - 15.years - 1.day,
+                       after: Date.new(2023, 8, 31) - 17.years,
+                       before: Date.new(2023, 8, 31) - 15.years - 1.day,
                        competing_category: "male",
                        display_name: "Under 17s Boys")
 
 jm = AgeRange.create(competition: athletics_comp,
-                       before: Date.new(2023, 8, 31) - 15.years,
-                       after: Date.new(2023, 8, 31) - 17.years - 1.day,
-                       competing_category: "male",
-                       display_name: "Junior Mens")
+                     after: Date.new(2023, 8, 31) - 20.years,
+                     before: Date.new(2023, 8, 31) - 17.years - 1.day,
+                     competing_category: "male",
+                     display_name: "Junior Mens")
 
 u15f = AgeRange.create(competition: athletics_comp,
-                       before: Date.new(2023, 8, 31) - 15.years,
-                       after: Date.new(2023, 8, 31),
+                       after: Date.new(2023, 8, 31) - 15.years,
+                       before: Date.new(2023, 8, 31),
                        competing_category: "female",
                        display_name: "Under 15s Girls")
 
 jw = AgeRange.create(competition: athletics_comp,
-                       before: Date.new(2023, 8, 31) - 15.years,
-                       after: Date.new(2023, 8, 31) - 15.years - 1.day,
-                       competing_category: "female",
-                       display_name: "Junior Women's")
+                     after: Date.new(2023, 8, 31) - 20.years,
+                     before: Date.new(2023, 8, 31) - 15.years - 1.day,
+                     competing_category: "female",
+                     display_name: "Junior Women's")
 
 
 hundered_meters_u15m = Event.create(competition: athletics_comp,

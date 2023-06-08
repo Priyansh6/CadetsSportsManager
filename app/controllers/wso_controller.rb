@@ -1,3 +1,4 @@
+require 'set'
 class WsoController < ApplicationController
   def index
     @competitions = Competition.all
@@ -28,18 +29,53 @@ class WsoController < ApplicationController
   end
 
   def save_age_ranges
-    @competition = Competition.find(params[:id])
-    n = params[:ranges_length]
-    (1..n).each { |i|
-      age_range = AgeRange.new(competition: @competition,
-                               competing_category: params[("competing_cat_entry_" + i).to_sym],
-                               before: ,
-                               after: ,
-                               display_name: "something")
-      age_range.save
+    # @competition = Competition.find(params[:id])
+    @competition = Competition.where(id: params[:id]).first
+    AgeRange.where(competition: @competition).delete_all
+    n = params[:ranges_length].to_i
+    rows = []
+    competing_categories = Set.new
+
+    (2..n+1).each { |i|
+      competing_category = params[("competing_cat_entry_" + i.to_s).to_sym]
+      row = Row.new(params[("cat_name_entry_" + i.to_s).to_sym],
+                    params[("competing_cat_entry_" + i.to_s).to_sym],
+                    params[("max_age_entry_" + i.to_s).to_sym].to_i,
+                    params[("cutoff_date_entry_" + i.to_s).to_sym].to_date)
+      competing_categories << competing_category
+      rows << row
     }
+
+    competing_categories.each do |cat|
+      date_before = Date.today
+      rows.select { |row| row.category == cat }.sort_by { |row| row.age }.each do |row|
+        date_after = row.cutoff - row.age.years
+        ar = AgeRange.create(competition: @competition,
+                             before: date_before,
+                             after: date_after,
+                             display_name: row.name,
+                             competing_category: row.category)
+        date_before = date_after - 1.day
+      end
+    end
+
+
   end
 
   private
 
+end
+
+class Row
+  def initialize(name, category, age, cutoff)
+    @name = name
+    @category = category
+    @age = age
+    @cutoff = cutoff
+  end
+
+  attr_reader :name
+  attr_reader :category
+  attr_reader :age
+  attr_reader :cutoff
 end
