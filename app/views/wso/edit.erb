@@ -1,0 +1,50 @@
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">
+      Edit Competition
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <%= form_tag "/wso/competitions/edit" do %>
+    <div class="columns">
+      <div class="column is-three-quarters">
+        <div class="field">
+          <label class="label">Competition Name</label>
+          <div class="control">
+            <input class="input" id="title" name="title" type="text" value="">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Date</label>
+          <div class="control">
+            <input class="input" id="competition_date" name="competition_date" type="date">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Location</label>
+          <div class="control">
+            <input class="input" id="location" name="location" type="text" value="">
+          </div>
+        </div>
+
+        <%= render 'wso/event_creation' %>
+      </div>
+
+      <div class="column">
+        <div class="control">
+          <button class="button is-link">Edit Age Ranges</button>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="control">
+          <button class="button is-link">Publish</button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</section>
