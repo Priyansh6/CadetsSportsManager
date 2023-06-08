@@ -13,21 +13,21 @@
         <div class="field">
           <label class="label">Competition Name</label>
           <div class="control">
-            <input class="input" id="title" name="title" type="text" value="">
+            <input class="input" id="title" name="title" type="text" value="<%= @competition.title %>">
           </div>
         </div>
 
         <div class="field">
           <label class="label">Date</label>
           <div class="control">
-            <input class="input" id="competition_date" name="competition_date" type="date">
+            <input class="input" id="competition_date" name="competition_date" type="date" value="<%= @competition.competition_date %>">
           </div>
         </div>
 
         <div class="field">
           <label class="label">Location</label>
           <div class="control">
-            <input class="input" id="location" name="location" type="text" value="">
+            <input class="input" id="location" name="location" type="text" value="<%= @competition.location %>">
           </div>
         </div>
 
@@ -59,7 +59,7 @@
 
       <div class="column">
         <div class="control">
-          <button class="button is-link">Edit Age Ranges</button>
+          <a class="button is-link" href="/wso/competitions/<%=@competition.id%>/age-ranges/edit">Edit Age Ranges</a>
         </div>
       </div>
 
