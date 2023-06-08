@@ -31,7 +31,31 @@
           </div>
         </div>
 
-        <%= render 'wso/event_creation' %>
+        <div class="field">
+          <label class="label">Multi-event Competition?</label>
+          <div class="control">
+            <label class="radio">
+              <input type="radio" name="answer">
+              No
+            </label>
+            <label class="radio">
+              <input type="radio" name="answer">
+              Yes
+            </label>
+          </div>
+        </div>
+
+
+        <!-- <%= render 'wso/event_creation' %> -->
+        <div class="columns is-multiline">
+          <div class="column is-narrow">
+            <div class="card">
+              <div class="card-content">
+                <%= link_to "+ Create Event", "/wso/competitions/new-event" %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="column">
