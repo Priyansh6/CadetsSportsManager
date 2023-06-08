@@ -1,0 +1,76 @@
+
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">
+      <%= @event.title %> <%= @event.age_range.display_name %>
+    </p>
+    <% curr = CadetRegistration.where(event: @event).joins(:cadet).where(cadet: { squadron_id: 1 }).count %>
+    <p class="subtitle">
+      Capacity: <%= @event.capacity %> / <%= curr %>
+    </p>
+  </div>
+</section>
+
+<section class="section">
+
+  <p class="title">
+    REGISTER CADET:
+  </p>
+
+
+  <div class="columns">
+    <div class="column is-two-fifths">
+      <%= form_tag '/unit-create-event-cadet/' + String(@event.id) do %>
+
+        <div class="field">
+          <label class="label">First Name</label>
+          <div class="control">
+            <input class="input" id="first_name" name="first_name" type="text" placeholder="Joe">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Last Name</label>
+          <div class="control">
+            <input class="input" id="last_name" name="last_name" type="text" placeholder="Bloggs">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">DOB</label>
+          <div class="control">
+            <input type="date" id="dob" name="dob" required pattern="\d{4}-\d{2}-\d{2}" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">CID</label>
+          <div class="control">
+            <input class="input" id="cid" name="cid" type="text" placeholder="023823...">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Competing category</label>
+          <div class="control">
+            <div class="select">
+              <select id="gender" class="gender" name="gender">
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <%= submit_tag 'Create', class: "button is-link is-green" %>
+          </div>
+          <div class="control">
+            <button class="button is-link is-light" type="reset">Cancel</button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

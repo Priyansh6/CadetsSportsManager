@@ -1,0 +1,26 @@
+<div class="level-item">
+  <p class="subtitle is-5">
+    <%= c.firstname %>
+  </p>
+</div>
+<div class="level-item">
+  <p class="subtitle is-5">
+    <%= c.lastname %>
+  </p>
+</div>
+<div class="level-item">
+  <p class="subtitle is-5">
+    <%= c.dob %>
+  </p>
+</div>
+
+<div class="level-item">
+  <p class="subtitle is-5">
+    <%= if c.competing_category == "male"
+          "Boys"
+        else
+          "Girls"
+        end
+    %>
+  </p>
+</div>
