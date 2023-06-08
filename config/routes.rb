@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   root 'wso#index'
 
   get "/wso", to: "wso#index"
-  get "/wso/competitions/new", to: "wso#new"
+
+  get "/wso/competitions/new", to: "wso#edit"
   post "/wso/competitions/create", to: "wso#create", as: :competitions_path
+
+  get "/wso/competitions/new-event", to: "wso#new_event"
+
   get "/wso/competitions/:id", to: "wso#show"
 end
