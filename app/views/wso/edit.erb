@@ -35,19 +35,18 @@
           <label class="label">Multi-event Competition?</label>
           <div class="control">
             <label class="radio">
-              <input type="radio" name="answer">
+              <input type="radio" name="answer" onclick="displaySingleEvent()">
               No
             </label>
             <label class="radio">
-              <input type="radio" name="answer">
+              <input type="radio" name="answer" onclick="displayMultiEvents()">
               Yes
             </label>
           </div>
         </div>
 
-
-        <!-- <%= render 'wso/event_creation' %> -->
-        <div class="columns is-multiline">
+        <%= render 'wso/event_creation' %>
+        <div class="columns is-multiline" id="event-cards">
           <div class="column is-narrow">
             <div class="card">
               <div class="card-content">
@@ -72,3 +71,18 @@
     </div>
   <% end %>
 </section>
+
+<script>
+  document.getElementById("event-cards").style.display = "none";
+  document.getElementById("event-creation-box").style.display = "none";
+
+  function displaySingleEvent() {
+      document.getElementById("event-cards").style.display = "none";
+      document.getElementById("event-creation-box").style.display = "block";
+  }
+
+  function displayMultiEvents() {
+      document.getElementById("event-cards").style.display = "inline-block";
+      document.getElementById("event-creation-box").style.display = "none";
+  }
+</script>
