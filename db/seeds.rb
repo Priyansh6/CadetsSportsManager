@@ -93,6 +93,105 @@ hundered_meters_jw = Event.create(competition: athletics_comp,
                                     title: "100m",
                                   capacity: 1)
 
+hundered_meters_u15m = Event.create(competition: athletics_comp,
+                                    age_range: u15m,
+                                    title: "200m",
+                                    capacity: 1)
+
+hundered_meters_u17m = Event.create(competition: athletics_comp,
+                                    age_range: u17m,
+                                    title: "200m",
+                                    capacity: 1)
+
+hundered_meters_jm = Event.create(competition: athletics_comp,
+                                  age_range: jm,
+                                  title: "200m",
+                                  capacity: 1)
+
+hundered_meters_u15f = Event.create(competition: athletics_comp,
+                                    age_range: u15f,
+                                    title: "200m",
+                                    capacity: 1)
+
+hundered_meters_jw = Event.create(competition: athletics_comp,
+                                  age_range: jw,
+                                  title: "200m",
+                                  capacity: 1)
+
+hundered_meters_u15m = Event.create(competition: athletics_comp,
+                                    age_range: u15m,
+                                    title: "3/400m",
+                                    capacity: 1)
+
+hundered_meters_u17m = Event.create(competition: athletics_comp,
+                                    age_range: u17m,
+                                    title: "3/400m",
+                                    capacity: 1)
+
+hundered_meters_jm = Event.create(competition: athletics_comp,
+                                  age_range: jm,
+                                  title: "3/400m",
+                                  capacity: 1)
+
+hundered_meters_u15f = Event.create(competition: athletics_comp,
+                                    age_range: u15f,
+                                    title: "3/400m",
+                                    capacity: 1)
+
+hundered_meters_jw = Event.create(competition: athletics_comp,
+                                  age_range: jw,
+                                  title: "3/400m",
+                                  capacity: 1)
+
+hundered_meters_u15m = Event.create(competition: athletics_comp,
+                                    age_range: u15m,
+                                    title: "800m",
+                                    capacity: 1)
+
+hundered_meters_u17m = Event.create(competition: athletics_comp,
+                                    age_range: u17m,
+                                    title: "800m",
+                                    capacity: 1)
+
+hundered_meters_jm = Event.create(competition: athletics_comp,
+                                  age_range: jm,
+                                  title: "800m",
+                                  capacity: 1)
+
+hundered_meters_u15f = Event.create(competition: athletics_comp,
+                                    age_range: u15f,
+                                    title: "800m",
+                                    capacity: 1)
+
+hundered_meters_jw = Event.create(competition: athletics_comp,
+                                  age_range: jw,
+                                  title: "800m",
+                                  capacity: 1)
+
+hundered_meters_u15m = Event.create(competition: athletics_comp,
+                                    age_range: u15m,
+                                    title: "relay",
+                                    capacity: 4)
+
+hundered_meters_u17m = Event.create(competition: athletics_comp,
+                                    age_range: u17m,
+                                    title: "relay",
+                                    capacity: 4)
+
+hundered_meters_jm = Event.create(competition: athletics_comp,
+                                  age_range: jm,
+                                  title: "relay",
+                                  capacity: 4)
+
+hundered_meters_u15f = Event.create(competition: athletics_comp,
+                                    age_range: u15f,
+                                    title: "relay",
+                                    capacity: 4)
+
+hundered_meters_jw = Event.create(competition: athletics_comp,
+                                  age_range: jw,
+                                  title: "relay",
+                                  capacity: 4)
 
 c1 = Cadet.create(firstname: "Joe",
                   lastname: "Bloogs",

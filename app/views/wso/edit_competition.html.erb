@@ -31,44 +31,61 @@
           </div>
         </div>
 
-        <div class="field">
-          <label class="label">Multi-event Competition?</label>
-          <div class="control">
-            <label class="radio">
-              <input type="radio" name="answer" onclick="displaySingleEvent()">
-              No
-            </label>
-            <label class="radio">
-              <input type="radio" name="answer" onclick="displayMultiEvents()">
-              Yes
-            </label>
-          </div>
+        <div class="column is-one-quarter">
+            <div class="control">
+              <a class="button is-link" href="/wso/competitions/<%=@competition.id%>/age-ranges/edit">Edit Age Ranges</a>
+            </div>
+            <br>
+            <div class="control">
+              <a class="button is-link" href="/wso">Publish</a>
+            </div>
         </div>
+      </div>
+    </div>
+    </section>
 
-        <%= render 'wso/event_creation' %>
-        <div class="columns is-multiline" id="event-cards">
-          <div class="column is-narrow">
-            <div class="card">
-              <div class="card-content">
-                <%= link_to "+ Create Event", "/wso/competitions/new-event" %>
-              </div>
+    <section class="section">
+      <div class="field">
+        <label class="label">Multi-event Competition?</label>
+        <div class="control">
+          <label class="radio">
+            <input type="radio" name="answer" onclick="displaySingleEvent()">
+            No
+          </label>
+          <label class="radio">
+            <input type="radio" name="answer" onclick="displayMultiEvents()">
+            Yes
+          </label>
+        </div>
+      </div>
+
+      <%= render 'wso/event_creation' %>
+      <div class="columns is-multiline" id="event-cards">
+        <div class="column is-narrow">
+          <div class="card">
+            <div class="card-content">
+              <%= link_to "+ Create Event", "/wso/competitions/new-event/" + params[:id].to_s  %>
             </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="column">
-        <div class="control">
-          <a class="button is-link" href="/wso/competitions/<%=@competition.id%>/age-ranges/edit">Edit Age Ranges</a>
-        </div>
-      </div>
 
-      <div class="column">
-        <div class="control">
-          <button class="button is-link">Publish</button>
+    <section class="section">
+        <div class="columns is-multiline" >
+          <% Event.where(competition_id: params[:id]).each do |e| %>
+          <div class="column is-narrow">
+            <div class="card">
+              <div class="card-content">
+                <%= e.title %> <%= e.age_range.display_name %>
+                </div>
+              </div>
+            </div>
+          <% end %>
         </div>
-      </div>
-    </div>
+
+
   <% end %>
 </section>
 

@@ -211,7 +211,17 @@
         resetRowIndexes();
     }
 
-    function refreshPage() {
-        window.location.reload();
+        // sleep time expects milliseconds
+        function sleep (time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
+        // Usage!
+
+
+        function refreshPage(){
+        sleep(200).then(() => {
+            window.location.reload();
+        });
     }
 </script>

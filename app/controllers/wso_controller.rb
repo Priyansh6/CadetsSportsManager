@@ -28,6 +28,20 @@ class WsoController < ApplicationController
     @competition = Competition.find(params[:id])
   end
 
+  def new_event_create
+    redirect_to '/wso/competitions/edit/' + params[:id].to_s
+
+    AgeRange.where(competition_id: params[:id]).each do |ar|
+      if params[ar.id.to_s] == "on"
+        Event.create(title: params[:event_title],
+                     competition_id: params[:id],
+                     age_range: ar,
+                     capacity: 1)
+      end
+    end
+
+  end
+
   def save_age_ranges
     # @competition = Competition.find(params[:id])
     @competition = Competition.where(id: params[:id]).first

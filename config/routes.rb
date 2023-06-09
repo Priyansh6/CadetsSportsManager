@@ -8,7 +8,8 @@ Rails.application.routes.draw do
 
   get "/wso", to: "wso#index"
   get "/wso/competitions/new", to: "wso#new_competition"
-  get "/wso/competitions/new-event", to: "wso#new_event"
+  get "/wso/competitions/new-event/:id", to: "wso#new_event"
+  post "/wso/competitions/new-event-create/:id", to: "wso#new_event_create"
   post "/wso/competitions/create", to: "wso#create_competition", as: :competitions_path
   get "/wso/competitions/edit/:id", to: "wso#edit_competition"
   get "/wso/competitions/:id/age-ranges/edit", to: "wso#edit_age_ranges"

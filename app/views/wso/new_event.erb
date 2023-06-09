@@ -7,7 +7,7 @@
 </section>
 
 <section class="section">
-  <%= form_tag "/wso/competitions/new_event" do %>
+  <%= form_tag "/wso/competitions/new-event-create/" + params[:id] do %>
     <div class="columns">
       <div class="column is-three-quarters">
         <div class="field">
@@ -16,7 +16,28 @@
             <input class="input" id="event_title" name="event_title" type="text" value="">
           </div>
         </div>
-        <%= render 'wso/event_creation' %>
+        <div class="box" id="event-creation-box">
+          <div class="columns">
+            <div class="column is-four-fifths">
+              <div class="block">
+                <p>Competing Category</p>
+              </div>
+
+              <% AgeRange.where(competition_id: params[:id]).each do |ar| %>
+                <div class="block">
+                  <div class="field">
+                    <div class="control">
+                      <label class="checkbox">
+                        <input name="<%= ar.id %>" type="checkbox">
+                        <%= ar.display_name %>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+
+          </div>
+        </div>
       </div>
 
       <div class="column">
