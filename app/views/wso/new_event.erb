@@ -22,7 +22,6 @@
               <div class="block">
                 <p>Competing Category</p>
               </div>
-
               <% AgeRange.where(competition_id: params[:id]).each do |ar| %>
                 <div class="block">
                   <div class="field">
@@ -35,7 +34,7 @@
                   </div>
                 </div>
               <% end %>
-
+            </div>
           </div>
         </div>
       </div>

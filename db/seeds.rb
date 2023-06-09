@@ -35,7 +35,8 @@ athletics_comp = Competition.create(title: "Athletics",
                                     competition_date: Date.new(2023, 8, 16),
                                     location: "Watford",
                                     minimum_age: 12,
-                                    locked: false)
+                                    locked: false,
+                                    )
 
 u15m = AgeRange.create(competition: athletics_comp,
                        after: Date.new(2023, 8, 31) - 15.years,

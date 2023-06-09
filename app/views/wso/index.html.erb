@@ -9,11 +9,11 @@
 
   <div class="columns is-multiline">
     <div class="column is-narrow">
-      <div class="card">
-        <div class="card-content">
-          <%= link_to "+ Create Competition", "/wso/competitions/new" %>
-      </div>
+      <section class="section">
+        <a class="button is-large is-responsive is-info" href="/wso/competitions/new">+ Create Competition</a>
+      </section>
     </div>
+
     <% @competitions.each do |competition| %>
       <div class="column is-narrow">
         <div class="card">
