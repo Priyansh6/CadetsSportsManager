@@ -6,10 +6,13 @@
   </div>
 </section>
 
+<% single_event =  @competition.single_event == true%>
+
 <section class="section">
-  <%= form_tag "/wso/competitions/edit" do %>
-    <div class="columns">
-      <div class="column is-three-quarters">
+
+  <div class="columns">
+    <div class="column is-half">
+      <%= form_tag '/wso/competitions/edit-push/' + params[:id] do %>
         <div class="field">
           <label class="label">Competition Name</label>
           <div class="control">
@@ -31,75 +34,142 @@
           </div>
         </div>
 
-        <div class="column is-one-quarter">
-            <div class="control">
-              <a class="button is-link" href="/wso/competitions/<%=@competition.id%>/age-ranges/edit">Edit Age Ranges</a>
-            </div>
-            <br>
-            <div class="control">
-              <a class="button is-link" href="/wso">Publish</a>
-            </div>
+        <div class="control">
+          <%= submit_tag 'Save Details', class: "button is-link is-large" %>
         </div>
+      <% end %>
+    </div>
+
+    <div class="column is-one-quarter">
+      <div class="control">
+        <a class="button is-link is-large" href="/wso/competitions/<%= @competition.id %>/age-ranges/edit">Edit Age
+          Ranges</a>
       </div>
     </div>
-    </section>
 
-    <section class="section">
-      <div class="field">
-        <label class="label">Multi-event Competition?</label>
-        <div class="control">
-          <label class="radio">
-            <input type="radio" name="answer" onclick="displaySingleEvent()">
-            No
-          </label>
-          <label class="radio">
-            <input type="radio" name="answer" onclick="displayMultiEvents()">
-            Yes
-          </label>
-        </div>
-      </div>
+  </div>
+  </div>
+</section>
 
-      <%= render 'wso/event_creation' %>
-      <div class="columns is-multiline" id="event-cards">
-        <div class="column is-narrow">
-          <div class="card">
-            <div class="card-content">
-              <%= link_to "+ Create Event", "/wso/competitions/new-event/" + params[:id].to_s  %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<section class="section">
+  <div class="field">
+    <label class="label">Multi-event Competition?</label>
+    <div class="control">
+      <label class="radio">
+        <input type="radio"
+               name="answer"
+               onclick="confirm('Are you sure? Doing this will delete all events submitted by the other stream');
+                 displaySingleEvent()"
+               <%= single_event ? "checked" : "" %> >
+        No
+      </label>
+      <label class="radio">
+        <input type="radio"
+               name="answer"
+               onclick="confirm('Are you sure? Doing this will delete all events submitted by the other stream'); displayMultiEvents()"
+               <%= !single_event ? "checked" : "" %> >
+        Yes
+      </label>
+    </div>
+  </div>
 
+  <div class="box" id="event-creation-box">
 
-    <section class="section">
-        <div class="columns is-multiline" >
-          <% Event.where(competition_id: params[:id]).each do |e| %>
+    <div class="columns is-multiline">
+      <% if single_event %>
+        <% Event.where(competition_id: params[:id]).each do |e| %>
           <div class="column is-narrow">
             <div class="card">
               <div class="card-content">
                 <%= e.title %> <%= e.age_range.display_name %>
-                </div>
               </div>
             </div>
-          <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= form_tag "/wso/competitions/single-new-event-create/" + params[:id] do %>
+      <div class="columns">
+        <div class="column is-three-quarters">
+          <div class="box" id="event-creation-box">
+            <div class="columns">
+              <div class="column is-four-fifths">
+                <div class="block">
+                  <p>Competing Category</p>
+                </div>
+
+                <% AgeRange.where(competition_id: params[:id]).each do |ar| %>
+                  <div class="block">
+                    <div class="field">
+                      <div class="control">
+                        <label class="checkbox">
+                          <input name="<%= ar.id %>"
+                                 type="checkbox"
+                                 <%= Event.where(competition: @competition, age_range: ar).count > 0 and single_event ? "checked" : "" %>>
+                          <%= ar.display_name %>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="control">
+              <button class="button is-link">Save</button>
+            </div>
+          </div>
         </div>
+      </div>
+    <% end %>
+
+  </div>
+  <div class="box" id="event-cards">
+    <div class="columns is-multiline" id="event-cards">
+      <div class="column is-narrow">
+        <div class="card">
+          <div class="card-content">
+            <%= link_to "+ Create Event", "/wso/competitions/new-event/" + params[:id].to_s %>
+          </div>
+        </div>
+      </div>
+      <% if !single_event %>
+        <% Event.where(competition_id: params[:id]).each do |e| %>
+          <div class="column is-narrow">
+            <div class="card">
+              <div class="card-content">
+                <%= e.title %> <%= e.age_range.display_name %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>
 
 
-  <% end %>
+<section class="section">
+  <div class="columns is-multiline">
+
+  </div>
+
+
 </section>
 
 <script>
-  document.getElementById("event-cards").style.display = "none";
-  document.getElementById("event-creation-box").style.display = "none";
+    <%= !single_event ? "displayMultiEvents()" : "displaySingleEvent()" %>
 
-  function displaySingleEvent() {
-      document.getElementById("event-cards").style.display = "none";
-      document.getElementById("event-creation-box").style.display = "block";
-  }
+    function displaySingleEvent() {
+        document.getElementById("event-cards").style.display = "none";
+        document.getElementById("event-creation-box").style.display = "block";
+    }
 
-  function displayMultiEvents() {
-      document.getElementById("event-cards").style.display = "inline-block";
-      document.getElementById("event-creation-box").style.display = "none";
-  }
+    function displayMultiEvents() {
+        document.getElementById("event-cards").style.display = "inline-block";
+        document.getElementById("event-creation-box").style.display = "none";
+    }
 </script>

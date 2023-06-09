@@ -1,0 +1,13 @@
+<% if notice %>
+  <div class="notification is-info">
+    <button class="delete"></button>
+    <strong><%= notice %></strong>
+  </div>
+<% end %>
+
+<% if alert %>
+  <div class="notification is-danger">
+    <button class="delete"></button>
+    <strong><%= alert %></strong>
+  </div>
+<% end %>

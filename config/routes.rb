@@ -9,17 +9,24 @@ Rails.application.routes.draw do
   get "/wso", to: "wso#index"
   get "/wso/competitions/new", to: "wso#new_competition"
   get "/wso/competitions/new-event/:id", to: "wso#new_event"
-  post "/wso/competitions/new-event-create/:id", to: "wso#new_event_create"
-  post "/wso/competitions/create", to: "wso#create_competition", as: :competitions_path
   get "/wso/competitions/edit/:id", to: "wso#edit_competition"
   get "/wso/competitions/:id/age-ranges/edit", to: "wso#edit_age_ranges"
-  post "/wso/competitions/:id/age-ranges/save", to: "wso#save_age_ranges"
+
+  post "/wso/competitions/new-event-create/:id", to: "wso#new_event_create"
+  post "/wso/competitions/create", to: "wso#create_competition", as: :competitions_path
+  post "/wso/competitions/edit-push/:id", to: "wso#edit_competition_push"
+  #post "/wso/competitions/:id/age-ranges/save", to: "wso#save_age_ranges"
+  post "/wso/competitions/single-new-event-create/:id", to: "wso#single_new_event_create"
+
+  post '/wso/age-range-create/:id', to: 'wso#create_age_range'
+  post '/wso/age-range-update/:cid/:id', to: 'wso#update_age_range'
+  post '/wso/age-range-delete/:cid/:id', to: 'wso#delete_age_range'
 
   get '/sso/competitions', to: 'sso#competitions'
   get '/sso/:compid/events', to: 'sso#competition_page'
   get '/sso/event/:eid', to: 'sso#event_page'
   get '/sso/event-bad/:eid', to: 'sso#event_page_bad'
-  get 'sso/cadets', to: 'sso#cadets'
+  get '/sso/cadets', to: 'sso#cadets'
 
   post '/sso/unregister-cadet/:eid/:cid', to: "sso#unregister_cadet"
   post '/sso/uninterested-cadet/:eid/:cid', to: "sso#uninterested_cadet"

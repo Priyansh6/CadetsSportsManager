@@ -1,7 +1,7 @@
 <section class="hero is-primary">
   <div class="hero-body">
     <p class="title">
-      Edit Competition
+      Create Competition
     </p>
   </div>
 </section>
@@ -11,46 +11,32 @@
     <div class="columns">
       <div class="column is-three-quarters">
         <div class="field">
-          <label class="label">Competition Name</label>
+          <label class="label is-medium">Competition Name</label>
           <div class="control">
-            <input class="input" id="title" name="title" type="text" value="">
+            <input class="input is-medium" id="title" name="title" type="text" value="">
           </div>
         </div>
 
         <div class="field">
-          <label class="label">Date</label>
+          <label class="label is-medium">Date</label>
           <div class="control">
-            <input class="input" id="competition_date" name="competition_date" type="date" value="">
+            <input class="input is-medium" id="competition_date" name="competition_date" type="date" value="">
           </div>
         </div>
 
-        <div class="field">
-          <label class="label">Location</label>
+        <div class="field ">
+          <label class="label is-medium">Location</label>
           <div class="control">
-            <input class="input" id="location" name="location" type="text" value="">
+            <input class="input is-medium" id="location" name="location" type="text" value="">
           </div>
         </div>
 
-      <div class="column">
-        <div class="control">
-          <input type="submit" class="button is-link" value="Create">
+        <div class="column">
+          <div class="control">
+            <input type="submit" class="button is-link is-medium" value="Create">
+          </div>
         </div>
       </div>
     </div>
   <% end %>
 </section>
-
-<script>
-  document.getElementById("event-cards").style.display = "none";
-  document.getElementById("event-creation-box").style.display = "none";
-
-  function displaySingleEvent() {
-      document.getElementById("event-cards").style.display = "none";
-      document.getElementById("event-creation-box").style.display = "block";
-  }
-
-  function displayMultiEvents() {
-      document.getElementById("event-cards").style.display = "inline-block";
-      document.getElementById("event-creation-box").style.display = "none";
-  }
-</script>
