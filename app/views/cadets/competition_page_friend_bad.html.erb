@@ -2,19 +2,29 @@
 
 <div id="background">
   <section class="hero is-primary">
+
     <div class="hero-body">
-      <p class="title">
-        <% cadet = Cadet.where(id: 1).first %>
-        <%= @competition.title %>
-      </p>
-      <p class="subtitle">
-        <%= @competition.competition_date %> <br>
-        <%= @competition.location %>
-      </p>
-      <a class="button is-large is-info" onclick="on()">
-        <i class="far fa-eye" id="togglePassword"> </i>
-        <p>&nbsp;&nbsp;View People Coming</p>
-      </a>
+      <div class="columns">
+        <div class="column is-three-quarters">
+          <p class="title">
+            <% cadet = Cadet.where(id: 1).first %>
+            <%= @competition.title %>
+          </p>
+          <p class="subtitle">
+            <%= @competition.competition_date %> <br>
+            <%= @competition.location %>
+          </p>
+          <a class="button is-large is-info" onclick="on()">
+            <i class="far fa-eye" id="togglePassword"> </i>
+            <p>&nbsp;&nbsp;View People Coming</p>
+          </a>
+        </div>
+        <div class="column">
+          <a class="button is-large is-responsive is-black" href="/cadet/">
+            &larr; Back
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
