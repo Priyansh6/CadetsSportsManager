@@ -1,0 +1,128 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+<div id="background">
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <div class="columns">
+        <div class="column is-narrow ">
+          <p class="title">
+           Your Events
+          </p>
+          <a class="button is-large is-responsive is-black" href="/cadet/">
+          &larr; Back
+        </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <% if @registered_events.count > 0 %>
+    <section class="section">
+      <p class="title">Events Registered For</p>
+      <div class="columns is-multiline">
+        <% @registered_events.each do |e| %>
+          <div class="column is-narrow ">
+            <div class="card" style="box-shadow: 0 0.5em 1em -0.125em #329c3f, 0 0 0 1px #329c3f;">
+              <div class="card-content">
+                <p class="title event-title">
+                  <%= e.age_range.display_name %> <%= e.title %>
+                  <heart> &#10004;</heart>
+                </p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+
+  <% if @interested_events.count > 0 %>
+  <section class="section">
+
+    <p class="title">Interested Events</p>
+
+    <div class="columns is-multiline">
+      <% i = 0 %>
+      <% @interested_events.each do |e| %>
+
+          <div class="column is-narrow ">
+            <div class="card" style="box-shadow: 0 0.5em 1em -0.125em #3e8ed0, 0 0 0 1px #3e8ed0;">
+              <div class="card-content">
+                <p class="title event-title">
+                  <%= e.age_range.display_name %> <%= e.title %>
+                    <tick> &hearts;</tick>
+                </p>
+                <div>
+                  <div class="buttons">
+
+                    <%= form_tag "/cadet/interested-cadet/" + e.id.to_s + "/" + @cadet.id.to_s + "/" do %>
+                        <%= submit_tag "Interested", class: "button is-info is-outlined", onClick: "refreshPage()", disabled: "" %>
+                    <% end %>
+
+                      <%= form_tag "/cadet/uninterested-cadet/" + e.id.to_s + "/" + @cadet.id.to_s + "/", id:i.to_s do %>
+                        <a class="button is-danger is-outlined" onClick="button(<%= i.to_s %>)">Uninterested</a>
+                    <% end %>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% i += 1 %>
+        <% end %>
+    </div>
+  </section>
+  <% end %>
+
+</div>
+
+<% if @registered_events.count == 0 and @interested_events.count == 0 %>
+  <section class="section" >
+    <p class="title"> It Seems your not interested in any events.... Go see whats out there</p>
+  </section>
+<% end %>
+
+<style>
+
+    .event-title tick {
+        color: #3e8ed0
+    }
+
+    .event-title heart {
+        color: #329c3f
+    }
+
+</style>
+
+<script>
+
+  function button(id) {
+      var confirmed = confirm("Are you sure you want to proceed?");
+      if (confirmed) {
+          var form = document.getElementById(id);
+          form.submit();
+          console.log("Button press confirmed!");
+          refreshPage();
+      }
+  }
+
+    // sleep time expects milliseconds
+    function sleep(time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
+    // Usage!
+
+
+    function refreshPage() {
+        sleep(200).then(() => {
+            window.location.reload();
+        });
+
+    }
+</script>
+
+
