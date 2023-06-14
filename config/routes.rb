@@ -36,4 +36,17 @@ Rails.application.routes.draw do
   post '/sso/cadet-update/:cid', to: 'sso#cadet_update'
   post '/sso/cadet-delete/:cid', to: 'sso#cadet_delete'
 
+  get '/cadet/competitions', to: 'cadets#competitions'
+  get '/cadet/competitions-my-events', to: 'cadets#competitions_my_events'
+  get '/cadet/:cid/events-bad', to: 'cadets#competition_page_bad'
+  get '/cadet/:cid/events', to: 'cadets#competition_page'
+  get '/cadet/:cid/events-friend', to: 'cadets#competition_page_friend'
+  get '/cadet/:cid/events-friend-bad', to: 'cadets#competition_page_friend_bad'
+  get '/cadet/my-events', to: 'cadets#my_events'
+
+  post '/cadet/interested-cadet/:eid/:cid', to: "cadets#interested_cadet"
+  post '/cadet/uninterested-cadet/:eid/:cid', to: "cadets#uninterested_cadet"
+
+
+
 end

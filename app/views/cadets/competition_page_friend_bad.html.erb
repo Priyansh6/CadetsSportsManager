@@ -1,0 +1,324 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+<div id="background">
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <p class="title">
+        <% cadet = Cadet.where(id: 1).first %>
+        <%= @competition.title %>
+      </p>
+      <p class="subtitle">
+        <%= @competition.competition_date %> <br>
+        <%= @competition.location %>
+      </p>
+      <a class="button is-large is-info" onclick="on()">
+        <i class="far fa-eye" id="togglePassword"> </i>
+        <p>&nbsp;&nbsp;View People Coming</p>
+      </a>
+    </div>
+  </section>
+
+
+    <% reg_events = CadetRegistration.joins(:event).where(cadet_id: cadet, event: { competition_id: params[:cid] }) %>
+
+    <% if reg_events.count > 0 %>
+      <section class="section">
+        <p class="title">Events Registered For</p>
+        <div class="columns is-multiline">
+          <% reg_events.each do |e| %>
+            <div class="column is-narrow ">
+              <div class="card" style="box-shadow: 0 0.5em 1em -0.125em #329c3f, 0 0 0 1px #329c3f;">
+                <div class="card-content">
+                  <p class="title event-title">
+                    <%= e.event.age_range.display_name %> <%= e.event.title %>
+                    <heart> &#10004;</heart>
+                  </p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </section>
+    <% end %>
+
+    <section class="section">
+
+      <p class="title">Available Events</p>
+
+      <div class="columns is-multiline">
+
+        <% @events.where.not(id: reg_events.select("event_id")).each do |e| %>
+
+          <% pre_reg = CadetInterest.where(event: e, cadet: @cadet).count > 0 %>
+          <% if e.age_range.competing_category == @cadet.competing_category and e.age_range.before > @cadet.dob and e.age_range.after < @cadet.dob %>
+            <div class="column is-narrow ">
+              <div class="card" style="<%= pre_reg ? "box-shadow: 0 0.5em 1em -0.125em #3e8ed0, 0 0 0 1px #3e8ed0;" : "" %>">
+                <div class="card-content">
+                  <p class="title event-title">
+                    <%= e.age_range.display_name %> <%= e.title %>
+                    <% if pre_reg %>
+                      <tick> &hearts;</tick>
+                    <% end %>
+                  </p>
+                  <% capacity = e.capacity %>
+                  <% curr = CadetRegistration.where(event: e).joins(:cadet).where(cadet: { squadron_id: 1 }).count %>
+                  <% if curr == capacity %>
+                    <% sub_style = 'color:green;' %>
+                  <% else %>
+                    <% sub_style = 'color:orange;f' %>
+                  <% end %>
+                  <p class="subtitle is-3" style="<%= sub_style %>;" hidden>
+                    <%= curr %> / <%= capacity %>
+                  </p>
+                  <div>
+                    <div class="buttons">
+                      <%= form_tag "/cadet/interested-cadet/" + e.id.to_s + "/" + @cadet.id.to_s + "/" do %>
+                        <% if pre_reg %>
+                          <%= submit_tag "Interested", class: "button is-info is-outlined", onClick: "refreshPage()", disabled: "" %>
+                        <% else %>
+                          <%= submit_tag "Interested", class: "button is-info is-outlined", onClick: "refreshPage()" %>
+                        <% end %>
+                      <% end %>
+
+                      <% if pre_reg %>
+                        <%= form_tag "/cadet/uninterested-cadet/" + e.id.to_s + "/" + @cadet.id.to_s + "/" do %>
+                          <%= submit_tag "Uninterested", class: "button is-danger is-outlined", onClick: "refreshPage()" %>
+                        <% end %>
+                      <% end %>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+</div>
+
+
+<div class="overlay" id="overlay">
+
+  <section class="container">
+    <div class="columns is-multiline">
+      <div class="column is-8 is-offset-2 register">
+        <nav class="level">
+
+          <div class="level-left"></div>
+
+          <div class="level-right" onclick="off()">
+            <p class="title" style="color: gray">
+              &cross;
+            </p>
+          </div>
+        </nav>
+        <section class="section">
+          <h1 class="title is-1">Participants list</h1>
+          <h2 class="subtitle colored is-4"><%= cadet.squadron.name %></h2>
+
+          <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+
+            <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Name</th>
+            </tr>
+            </thead>
+
+            <% cadets = Cadet.all.where(squadron: cadet.squadron)
+                             .where('(EXISTS (SELECT DISTINCT "c".*
+                                    FROM "cadets" as "c"
+                                         INNER JOIN "cadet_interests" as "r"
+                                             ON "c"."id" = "r"."cadet_id"
+                  INNER JOIN "events" as "e"
+                  ON "r"."event_id" = "e"."id"
+                  WHERE "c"."id" = "cadets"."id"
+                  AND "e"."competition_id" = :cid
+                  GROUP BY "c"."id"
+                  HAVING COUNT(*) >= 1)) OR (EXISTS (SELECT DISTINCT "c".*
+                                    FROM "cadets" as "c"
+                                         INNER JOIN "cadet_registrations" as "r"
+                                             ON "c"."id" = "r"."cadet_id"
+                  INNER JOIN "events" as "e"
+                  ON "r"."event_id" = "e"."id"
+                  WHERE "c"."id" = "cadets"."id"
+                  AND "e"."competition_id" = :cid
+                  GROUP BY "c"."id"
+                  HAVING COUNT(*) >= 1))',
+                                    cid: params[:cid]).distinct %>
+
+            <% cadets.each do |c| %>
+
+              <tr>
+                <td>CDT</td>
+                <td><%= c.firstname %> <%= c.lastname %></tD>
+              </tr>
+
+            <% end %>
+
+
+            <tbody>
+
+
+            </tbody>
+
+          </table>
+
+        </section>
+      </div>
+    </div>
+  </section>
+
+
+  <style>
+      :root {
+          --brandColor: hsl(166, 67%, 51%);
+          --background: rgb(247, 247, 247);
+          --textDark: hsla(0, 0%, 0%, 0.66);
+          --textLight: hsla(0, 0%, 0%, 0.33);
+      }
+
+
+      .field:not(:last-child) {
+          margin-bottom: 1rem;
+      }
+
+      .register {
+          margin-top: 10rem;
+          background: white;
+          border-radius: 10px;
+      }
+
+      .left,
+      .right {
+          padding: 4.5rem;
+      }
+
+      .left {
+          border-right: 5px solid var(--background);
+      }
+
+      .left .title {
+          font-weight: 800;
+          letter-spacing: -2px;
+      }
+
+      .left .colored {
+          color: var(--brandColor);
+          font-weight: 500;
+          margin-top: 1rem !important;
+          letter-spacing: -1px;
+      }
+
+      .left p {
+          color: var(--textLight);
+          font-size: 1.15rem;
+      }
+
+      .right .title {
+          font-weight: 800;
+          letter-spacing: -1px;
+      }
+
+      .right .description {
+          margin-top: 1rem;
+          margin-bottom: 1rem !important;
+          color: var(--textLight);
+          font-size: 1.15rem;
+      }
+
+      .right small {
+          color: var(--textLight);
+      }
+
+      input {
+          font-size: 1rem;
+      }
+
+      input:focus {
+          border-color: var(--brandColor) !important;
+          box-shadow: 0 0 0 1px var(--brandColor) !important;
+      }
+
+      .fab,
+      .fas {
+          color: var(--textLight);
+          margin-right: 1rem;
+      }
+
+      .va {
+          display: flex;
+          align-items: center;
+      }
+
+  </style>
+
+</div>
+
+
+<style>
+
+    .overlay {
+        position: fixed; /* Sit on top of the page content */
+        display: none; /* Hidden by default */
+        width: 100%; /* Full width (cover the whole page) */
+        height: 100%; /* Full height (cover the whole page) */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+        z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+        cursor: pointer; /* Add a pointer on hover */
+    }
+
+</style>
+
+
+<style>
+
+    .event-title tick {
+        color: #3e8ed0
+    }
+
+    .event-title heart {
+        color: #329c3f
+    }
+
+</style>
+
+<script>
+
+    off();
+
+    function on() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("background").style.overflow = "hidden";
+        document.getElementById("overlay").style.overflow = "auto"
+    }
+
+    function off() {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("background").style.overflow = "auto";
+        document.getElementById("overlay").style.overflow = "hidden"
+    }
+
+    // sleep time expects milliseconds
+    function sleep(time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
+    // Usage!
+
+
+    function refreshPage() {
+        sleep(200).then(() => {
+            window.location.reload();
+        });
+
+    }
+</script>
+
+

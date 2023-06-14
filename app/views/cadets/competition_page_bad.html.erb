@@ -1,0 +1,73 @@
+
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">
+      <%= @competition.title %>
+    </p>
+    <p class="subtitle">
+      <%= @competition.competition_date %> <br>
+      <%= @competition.location %>
+    </p>
+  </div>
+</section>
+
+<section class="section">
+
+  <div class="columns is-multiline">
+
+    <% @events.each do |e| %>
+
+      <% if e.age_range.competing_category == @cadet.competing_category and e.age_range.before > @cadet.dob and e.age_range.after < @cadet.dob %>
+        <div class="column is-narrow ">
+          <div class="card">
+            <div class="card-content">
+              <p class="title">
+                <%= e.age_range.display_name %> <%= e.title %>
+              </p>
+              <% capacity = e.capacity %>
+              <% curr = CadetRegistration.where(event: e).joins(:cadet).where(cadet: { squadron_id: 1 }).count %>
+              <% if curr == capacity %>
+                <% sub_style = 'color:green;' %>
+              <% else %>
+                <% sub_style = 'color:orange;f' %>
+              <% end %>
+              <p class="subtitle is-3" style="<%= sub_style %>;" hidden>
+                <%= curr %> / <%= capacity %>
+              </p>
+              <div>
+                <%= form_tag "/cadet/interested-cadet/" + e.id.to_s + "/" + @cadet.id.to_s + "/" do %>
+                  <% if CadetInterest.where(event: e, cadet: @cadet).count > 0 %>
+                    <%= submit_tag "Interested", class: "button is-info is-outlined", onClick: "refreshPage()", disabled: ""%>
+                  <% else %>
+                    <%= submit_tag "Interested", class: "button is-info is-outlined", onClick: "refreshPage()"%>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+    <% end %>
+
+  </div>
+
+</section>
+
+<script>
+    // sleep time expects milliseconds
+    function sleep (time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
+    // Usage!
+
+
+    function refreshPage(){
+        sleep(200).then(() => {
+            window.location.reload();
+        });
+
+    }
+</script>
+
+

@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">
+      Welcome <%= Cadet.where(id: 1).first.firstname %>
+    </p>
+    <p class="subtitle">
+      <% Cadet.where(id: 1).first.squadron.name %>
+    </p>
+    <p class="subtitle">
+      Bellow are all your active competitions
+    </p>
+  </div>
+</section>
+
+ <hr>
+
+<section class="section">
+
+  <p class="title">
+    Upcoming events
+  </p>
+
+  <div class="columns is-multiline">
+
+    <% @competitions.each do |c| %>
+
+      <div class="column is-narrow ">
+        <div class="card">
+          <div class="card-content">
+            <p class="title">
+              <%= c.title %>
+            </p>
+            <p class="subtitle">
+              Date: <%= c.competition_date.to_s %>
+            </p>
+            <p class="subtitle">
+              Location: <%= c.location %>
+            </p>
+          </div>
+          <footer class="card-footer">
+            <p class="card-footer-item">
+              <span>
+                <a href="/cadet/<%= c.id %>/events">View</a>
+              </span>
+            </p>
+          </footer>
+        </div>
+      </div>
+
+    <% end %>
+
+  </div>
+
+</section>
