@@ -15,7 +15,7 @@
 <div class="tabs is-large">
   <ul>
     <% @age_ranges.each do |ag| %>
-        <li onclick="clicked('<%= ag.id %>');"><a><%= ag.display_name %></a></li>
+        <li id="t-<%= ag.id %>" onclick="clicked('<%= ag.id %>');"><a><%= ag.display_name %></a></li>
     <% end %>
   </ul>
 </div>
@@ -75,14 +75,18 @@
       console.log("clicked " + id)
       hide_all();
       document.getElementById(id).style.display = "block";
+      document.getElementById("t-" + id).className  = "is-active";
   }
 
   function hide_all() {
       age_ranges.forEach((age_range) => {
         document.getElementById(age_range).style.display = "none";
+        document.getElementById("t-" + age_range).className = "";
       });
   }
 
-  hide_all();
+  if (age_ranges.length > 0) {
+   clicked(age_ranges[0])
+  }
 
 </script>
