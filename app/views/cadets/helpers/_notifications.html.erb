@@ -1,0 +1,19 @@
+
+
+<div id="new">
+  <% c =  Notification.where(cadet_id: 1, seen: false).order(created_at: :desc).count %>
+  <% Notification.where(cadet_id: 1, seen: false).order(created_at: :desc).each do |n| %>
+    <%= render 'cadets/helpers/notification', notification: n %>
+  <% end %>
+</div>
+
+
+<div class="navbar-item">
+  <p class="title"> Previous Notifications </p>
+</div>
+
+<div id="old">
+  <% Notification.where(cadet_id: 1, seen:true).order(created_at: :desc).take(c >= 5 ? 0 : 5 - c).each do |n| %>
+    <%= render 'cadets/helpers/notification', notification: n %>
+  <% end %>
+</div>

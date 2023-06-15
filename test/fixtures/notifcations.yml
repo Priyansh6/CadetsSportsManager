@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cadet: one
+  event: one
+  reg: false
+
+two:
+  cadet: two
+  event: two
+  reg: false

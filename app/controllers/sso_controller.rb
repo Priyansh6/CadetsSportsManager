@@ -38,6 +38,14 @@ class SsoController < ApplicationController
   def register_cadet
     CadetRegistration.create(cadet_id: params[:cid],
                              event_id: params[:eid])
+    n = Notification.new(cadet_id: params[:cid], event_id: params[:eid], reg: true, seen: false)
+
+    n.save
+
+    html = CadetsController.render(partial: "/cadets/helpers/notification", locals: {notification: n})
+
+    ActionCable.server.broadcast("registration_channel", html.to_s)
+
   end
 
   def interested_cadet

@@ -7,6 +7,10 @@ class CadetsController < ApplicationController
     @competitions = Competition.all
   end
 
+  def clear_seen
+    Notification.where(cadet_id: params[:cid], seen: false).update(seen: true)
+  end
+
   def competition_page_bad
     @cadet = Cadet.where(id: 1).first
 

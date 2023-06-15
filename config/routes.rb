@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
+  mount ActionCable.server => '/cable'
+
   root 'wso#index'
 
   get "/wso", to: "wso#index"
@@ -45,6 +47,7 @@ Rails.application.routes.draw do
   get '/cadet/:cid/events-friend-bad', to: 'cadets#competition_page_friend_bad'
   get '/cadet/my-events', to: 'cadets#my_events'
 
+  post '/cadet/clear-seen/:cid', to: 'cadets#clear_seen'
   post '/cadet/interested-cadet/:eid/:cid', to: "cadets#interested_cadet"
   post '/cadet/uninterested-cadet/:eid/:cid', to: "cadets#uninterested_cadet"
 
