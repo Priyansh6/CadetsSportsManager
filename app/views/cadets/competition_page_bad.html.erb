@@ -24,16 +24,6 @@
               <p class="title">
                 <%= e.age_range.display_name %> <%= e.title %>
               </p>
-              <% capacity = e.capacity %>
-              <% curr = CadetRegistration.where(event: e).joins(:cadet).where(cadet: { squadron_id: 1 }).count %>
-              <% if curr == capacity %>
-                <% sub_style = 'color:green;' %>
-              <% else %>
-                <% sub_style = 'color:orange;f' %>
-              <% end %>
-              <p class="subtitle is-3" style="<%= sub_style %>;" hidden>
-                <%= curr %> / <%= capacity %>
-              </p>
               <div>
                 <%= form_tag "/cadet/interested-cadet/" + e.id.to_s + "/" + @cadet.id.to_s + "/" do %>
                   <% if CadetInterest.where(event: e, cadet: @cadet).count > 0 %>

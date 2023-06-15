@@ -8,6 +8,27 @@ class SsoController < ApplicationController
     @events = Event.all.where(competition: @competition)
   end
 
+  def competition_page_first
+    @competition = Competition.where(id: params[:compid]).first
+    @age_ranges = AgeRange.where(competition: @competition)
+  end
+
+  def competition_page_second_one
+    @competition = Competition.where(id: params[:compid]).first
+    @age_ranges = AgeRange.where(competition: @competition)
+  end
+
+  def competition_page_second_two
+    @competition = Competition.where(id: params[:compid]).first
+    @age_range = AgeRange.where(id: params[:aid])
+    @events = Event.all.where(age_range_id: params[:aid])
+  end
+
+  def competition_page_third
+    @competition = Competition.where(id: params[:compid]).first
+    @age_ranges = AgeRange.where(competition: @competition)
+  end
+
   def event_page
     @event = Event.where(id: params[:eid]).first
     @registered = CadetRegistration.joins(:cadet).where(event: @event).where(cadet: {squadron_id: 1})

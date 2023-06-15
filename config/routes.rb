@@ -26,6 +26,16 @@ Rails.application.routes.draw do
 
   get '/sso/competitions', to: 'sso#competitions'
   get '/sso/:compid/events', to: 'sso#competition_page'
+  get '/sso/:compid/events', to: 'sso#competition_page'
+
+  get '/sso/:compid/events-first', to: 'sso#competition_page_first'
+
+  get '/sso/:compid/events-second', to: 'sso#competition_page_second_one'
+  get '/sso/:compid/events-second/:aid', to: 'sso#competition_page_second_two'
+
+  get '/sso/:compid/events-third', to: 'sso#competition_page_third'
+
+
   get '/sso/event/:eid', to: 'sso#event_page'
   get '/sso/event-bad/:eid', to: 'sso#event_page_bad'
   get '/sso/cadets', to: 'sso#cadets'

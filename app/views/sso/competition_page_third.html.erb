@@ -1,0 +1,88 @@
+
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">
+      <%= @competition.title %>
+    </p>
+    <p class="subtitle">
+      <%= @competition.competition_date %> <br>
+      <%= @competition.location %>
+    </p>
+  </div>
+</section>
+
+
+<div class="tabs is-large">
+  <ul>
+    <% @age_ranges.each do |ag| %>
+        <li onclick="clicked('<%= ag.id %>');"><a><%= ag.display_name %></a></li>
+    <% end %>
+  </ul>
+</div>
+
+<% @age_ranges.each do |ag| %>
+  <section class="section" id="<%= ag.id %>">
+
+    <div class="columns is-multiline">
+
+      <% Event.where(age_range: ag).each do |e| %>
+
+        <div class="column is-narrow ">
+          <div class="card">
+            <div class="card-content">
+              <p class="title">
+                <%= e.age_range.display_name %> <%= e.title %>
+              </p>
+              <% capacity = e.capacity %>
+              <% curr = CadetRegistration.where(event: e).joins(:cadet).where(cadet: { squadron_id: 1 }).count %>
+              <% if curr == capacity %>
+                <% sub_style = 'color:green;' %>
+              <% else %>
+                <% sub_style = 'color:orange;f' %>
+              <% end %>
+              <p class="subtitle is-3" style="<%= sub_style %>" >
+                <%= curr %> / <%= capacity %>
+              </p>
+            </div>
+            <footer class="card-footer">
+              <p class="card-footer-item">
+                <span>
+                  <a href="/sso/event/<%=e.id%>">View</a>
+                </span>
+              </p>
+            </footer>
+          </div>
+        </div>
+
+      <% end %>
+
+    </div>
+
+  </section>
+<% end %>
+
+<% first = true  %>
+
+<script>
+
+
+  const age_ranges = [<% @age_ranges.each do |ag| %>
+                        <%= !first ? "," : ""  %> "<%= ag.id.to_s %>"
+                        <% first = false %>
+                      <% end %>];
+
+  function clicked(id){
+      console.log("clicked " + id)
+      hide_all();
+      document.getElementById(id).style.display = "block";
+  }
+
+  function hide_all() {
+      age_ranges.forEach((age_range) => {
+        document.getElementById(age_range).style.display = "none";
+      });
+  }
+
+  hide_all();
+
+</script>

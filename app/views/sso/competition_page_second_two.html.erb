@@ -1,0 +1,60 @@
+
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="columns">
+      <div class="column is-three-quarters">
+        <p class="title">
+          <%= @competition.title %> - <%= @age_range.first.display_name %>
+        </p>
+        <p class="subtitle">
+          <%= @competition.competition_date %> <br>
+          <%= @competition.location %>
+        </p>
+      </div>
+      <div class="column">
+        <a class="button is-large is-responsive is-black" href="/sso/<%= @competition.id.to_s %>/events-second">
+          &larr; Back
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+
+  <div class="columns is-multiline">
+
+    <% @events.each do |e| %>
+
+      <div class="column is-narrow ">
+        <div class="card">
+          <div class="card-content">
+            <p class="title">
+              <%= e.age_range.display_name %> <%= e.title %>
+            </p>
+            <% capacity = e.capacity %>
+            <% curr = CadetRegistration.where(event: e).joins(:cadet).where(cadet: { squadron_id: 1 }).count %>
+            <% if curr == capacity %>
+              <% sub_style = 'color:green;' %>
+            <% else %>
+              <% sub_style = 'color:orange;f' %>
+            <% end %>
+            <p class="subtitle is-3" style="<%= sub_style %>" >
+              <%= curr %> / <%= capacity %>
+            </p>
+          </div>
+          <footer class="card-footer">
+            <p class="card-footer-item">
+              <span>
+                <a href="/sso/event/<%=e.id%>">View</a>
+              </span>
+            </p>
+          </footer>
+        </div>
+      </div>
+
+    <% end %>
+
+  </div>
+
+</section>

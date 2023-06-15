@@ -28,16 +28,6 @@
                   <tick> &#10004; </tick>
                 <% end %>
               </p>
-              <% capacity = e.capacity %>
-              <% curr = CadetRegistration.where(event: e).joins(:cadet).where(cadet: { squadron_id: 1 }).count %>
-              <% if curr == capacity %>
-                <% sub_style = 'color:green;' %>
-              <% else %>
-                <% sub_style = 'color:orange;f' %>
-              <% end %>
-              <p class="subtitle is-3" style="<%= sub_style %>;" hidden>
-                <%= curr %> / <%= capacity %>
-              </p>
               <div>
                 <div class="buttons">
                   <%= form_tag "/cadet/interested-cadet/" + e.id.to_s + "/" + @cadet.id.to_s + "/" do %>
@@ -53,9 +43,6 @@
                         <%= submit_tag "Uninterested", class: "button is-danger is-outlined", onClick: "refreshPage()"%>
                     <% end %>
                   <% end %>
-
-
-
                 </div>
               </div>
             </div>
