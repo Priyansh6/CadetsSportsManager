@@ -7,6 +7,10 @@ class CadetsController < ApplicationController
     @competitions = Competition.all
   end
 
+  def competitions_my_events_calender
+    @competitions = Competition.all
+  end
+
   def clear_seen
     Notification.where(cadet_id: params[:cid], seen: false).update(seen: true)
   end

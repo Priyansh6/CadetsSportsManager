@@ -27,12 +27,9 @@ Rails.application.routes.draw do
   get '/sso/competitions', to: 'sso#competitions'
   get '/sso/:compid/events', to: 'sso#competition_page'
   get '/sso/:compid/events', to: 'sso#competition_page'
-
   get '/sso/:compid/events-first', to: 'sso#competition_page_first'
-
   get '/sso/:compid/events-second', to: 'sso#competition_page_second_one'
   get '/sso/:compid/events-second/:aid', to: 'sso#competition_page_second_two'
-
   get '/sso/:compid/events-third', to: 'sso#competition_page_third'
 
 
@@ -43,14 +40,15 @@ Rails.application.routes.draw do
   post '/sso/unregister-cadet/:eid/:cid', to: "sso#unregister_cadet"
   post '/sso/uninterested-cadet/:eid/:cid', to: "sso#uninterested_cadet"
   post '/sso/register-cadet/:eid/:cid', to: "sso#register_cadet"
-  post '/sso/interested-cadet/:eid/:cid', to: "sso#interested_cadet"
+   post '/sso/interested-cadet/:eid/:cid', to: "sso#interested_cadet"
   post '/sso/cadet-create/', to: 'sso#cadet_create'
   post '/sso/cadet-update/:cid', to: 'sso#cadet_update'
   post '/sso/cadet-delete/:cid', to: 'sso#cadet_delete'
 
-  get '/cadet/', to: 'cadets#competitions_my_events'
+  get '/cadet/', to: 'cadets#competitions_my_events_calender'
   get '/cadet/competitions', to: 'cadets#competitions'
   get '/cadet/competitions-my-events', to: 'cadets#competitions_my_events'
+  get '/cadet/competitions-my-events-calender', to: 'cadets#competitions_my_events_calender'
   get '/cadet/:cid/events-bad', to: 'cadets#competition_page_bad'
   get '/cadet/:cid/events', to: 'cadets#competition_page'
   get '/cadet/:cid/events-friend', to: 'cadets#competition_page_friend'
