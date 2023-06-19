@@ -60,7 +60,7 @@
         <div class="level-item" >
           <div class="level-item" >
             <%= form_tag "/sso/uninterested-cadet/" + @event.id.to_s + "/" + r.cadet.id.to_s + "/" do %>
-              <%= submit_tag "Withdrawn Interest", class: "button is-danger ", onClick: "refreshPage()" %>
+              <%= submit_tag "Withdraw Interest", class: "button is-danger ", onClick: "refreshPage()" %>
             <% end %>
           </div>
         </div>
@@ -96,7 +96,7 @@
         <div class="level-item" >
           <div class="level-item" >
             <%= form_tag "/sso/interested-cadet/" + @event.id.to_s + "/" + a.id.to_s + "/" do %>
-              <%= submit_tag "Expressed Interested", class: "button is-info ", onClick: "refreshPage()" %>
+              <%= submit_tag "Express Interested", class: "button is-info ", onClick: "refreshPage()" %>
             <% end %>
           </div>
         </div>
