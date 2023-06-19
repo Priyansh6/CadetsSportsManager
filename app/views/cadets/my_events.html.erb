@@ -57,13 +57,9 @@
                 <div>
                   <div class="buttons">
 
-                    <%= form_tag "/cadet/interested-cadet/" + e.id.to_s + "/" + @cadet.id.to_s + "/" do %>
-                        <%= submit_tag "Interested", class: "button is-info is-outlined", onClick: "refreshPage()", disabled: "" %>
-                    <% end %>
-
                       <%= form_tag "/cadet/uninterested-cadet/" + e.id.to_s + "/" + @cadet.id.to_s + "/", id:i.to_s do %>
-                        <a class="button is-danger is-outlined" onClick="button(<%= i.to_s %>)">Uninterested</a>
-                    <% end %>
+                        <a class="button is-danger is-large" onClick="button(<%= i.to_s %>)">Withdraw Interest</a>
+                      <% end %>
 
 
                   </div>

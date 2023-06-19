@@ -26,7 +26,7 @@
 
         <div class="level-item" >
           <%= form_tag "/sso/unregister-cadet/" + r.event_id.to_s + "/" + r.cadet.id.to_s + "/" do %>
-            <%= submit_tag "Remove", class: "button is-danger is-outlined", onClick: "refreshPage()" %>
+            <%= submit_tag "Remove Registration", class: "button is-danger ", onClick: "refreshPage()" %>
           <% end %>
         </div>
       </div>
@@ -52,7 +52,7 @@
         <div class="level-item" >
           <div class="level-item" >
             <%= form_tag "/sso/register-cadet/" + @event.id.to_s + "/" + r.cadet.id.to_s + "/" do %>
-              <%= submit_tag "Register", class: "button is-success is-outlined", onClick: "refreshPage()" %>
+              <%= submit_tag "Register Cadet", class: "button is-success ", onClick: "refreshPage()" %>
             <% end %>
           </div>
         </div>
@@ -60,7 +60,7 @@
         <div class="level-item" >
           <div class="level-item" >
             <%= form_tag "/sso/uninterested-cadet/" + @event.id.to_s + "/" + r.cadet.id.to_s + "/" do %>
-              <%= submit_tag "Uninterested", class: "button is-danger is-outlined", onClick: "refreshPage()" %>
+              <%= submit_tag "Withdrawn Interest", class: "button is-danger ", onClick: "refreshPage()" %>
             <% end %>
           </div>
         </div>
@@ -87,7 +87,7 @@
         <div class="level-item" >
           <div class="level-item" >
             <%= form_tag "/sso/register-cadet/" + @event.id.to_s + "/" + a.id.to_s + "/" do %>
-              <%= submit_tag "Register", class: "button is-success is-outlined", onClick: "refreshPage()" %>
+              <%= submit_tag "Register Cadet", class: "button is-success", onClick: "refreshPage()" %>
             <% end %>
           </div>
         </div>
@@ -96,7 +96,7 @@
         <div class="level-item" >
           <div class="level-item" >
             <%= form_tag "/sso/interested-cadet/" + @event.id.to_s + "/" + a.id.to_s + "/" do %>
-              <%= submit_tag "Interested", class: "button is-info is-outlined", onClick: "refreshPage()" %>
+              <%= submit_tag "Expressed Interested", class: "button is-info ", onClick: "refreshPage()" %>
             <% end %>
           </div>
         </div>

@@ -37,7 +37,6 @@
     <div class="columns is-multiline">
 
       <% @competitions.each do |c| %>
-
         <div class="column is-narrow ">
           <div class="card">
             <div class="card-content">
@@ -54,13 +53,12 @@
             <footer class="card-footer">
               <p class="card-footer-item">
               <span>
-                <a href="/cadet/<%= c.id %>/events-friend-bad">View</a>
+                <a class="button is-info is-medium" href="/cadet/<%= c.id %>/events-friend-bad">View</a>
               </span>
               </p>
             </footer>
           </div>
         </div>
-
       <% end %>
 
     </div>

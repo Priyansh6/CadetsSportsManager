@@ -72,21 +72,17 @@
                   </p>
                   <div>
                     <div class="buttons">
-                      <%= form_tag "/cadet/interested-cadet/" + e.id.to_s + "/" + @cadet.id.to_s + "/" do %>
-                        <% if pre_reg %>
-                          <%= submit_tag "Interested", class: "button is-info is-outlined", onClick: "refreshPage()", disabled: "" %>
-                        <% else %>
-                          <%= submit_tag "Interested", class: "button is-info is-outlined", onClick: "refreshPage()" %>
+                      <% unless pre_reg %>
+                        <%= form_tag "/cadet/interested-cadet/" + e.id.to_s + "/" + @cadet.id.to_s + "/" do %>
+                          <%=  submit_tag "Express Interest", class: "button is-info is-large", onClick: "refreshPage()"  %>
                         <% end %>
                       <% end %>
 
                       <% if pre_reg %>
                         <%= form_tag "/cadet/uninterested-cadet/" + e.id.to_s + "/" + @cadet.id.to_s + "/" do %>
-                          <%= submit_tag "Uninterested", class: "button is-danger is-outlined", onClick: "refreshPage()" %>
+                          <%= submit_tag "Withdraw Interest", class: "button is-danger is-large", onClick: "refreshPage()" %>
                         <% end %>
                       <% end %>
-
-
                     </div>
                   </div>
                 </div>
@@ -118,7 +114,7 @@
           <h1 class="title is-1">Participants list</h1>
           <h2 class="subtitle colored is-4"><%= cadet.squadron.name %></h2>
 
-          <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+          <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" style="font-size: 1.5rem;">
 
             <thead>
             <tr>

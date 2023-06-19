@@ -18,5 +18,22 @@
 <%= yield %>
 
 <%= render 'layouts/bulmajs' %>
+
+<script>
+
+    var initialHistoryState = window.history.state;
+
+    // Listen for the window's 'popstate' event
+    window.addEventListener('DOMContentLoaded', function(event) {
+        // Check if the history state has changed
+        if (window.history.state !== initialHistoryState) {
+            // Reload the page
+            location.reload();
+        }
+    });
+
+
+</script>
+
 </body>
 </html>

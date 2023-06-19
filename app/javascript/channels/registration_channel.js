@@ -12,9 +12,14 @@ consumer.subscriptions.create("RegistrationChannel", {
   received(data) {
     console.log("Received message:", data);
     // Update the view with the received data
-    const container = document.getElementById("new");
-    container.innerHTML = data + container.innerHTML;
-    increment_counter();
+
+    var splitdat = data.split("-");
+
+    if (splitdat.length > 2 && splitdat[0] === "1") {
+      const container = document.getElementById("new");
+      container.innerHTML = data + container.innerHTML;
+      increment_counter();
+    }
   },
 
   send(message) {

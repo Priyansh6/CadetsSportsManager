@@ -42,12 +42,15 @@
               <% end %>
               <p class="subtitle is-3" style="<%= sub_style %>" >
                 <%= curr %> / <%= capacity %>
+                <% if curr == capacity %>
+                  &#10004;
+                <% end %>
               </p>
             </div>
             <footer class="card-footer">
               <p class="card-footer-item">
                 <span>
-                  <a href="/sso/event/<%=e.id%>">View</a>
+                  <a class="button is-info is-medium" href="/sso/event/<%=e.id%>">View Event</a>
                 </span>
               </p>
             </footer>

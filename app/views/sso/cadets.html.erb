@@ -43,7 +43,7 @@
           <input class="input" name="competing_category" type="text" value="">
         </td>
         <td>
-          <%= submit_tag "Create", class: "button is-info is-outlined", onClick: "refreshPage()" %>
+          <%= submit_tag "Create Cadet", class: "button is-info is-outlined", onClick: "refreshPage()" %>
         </td>
     </tr>
     <% end %>
@@ -72,12 +72,12 @@
           <input class="input" name="competing_category" type="text" value="<%= c.competing_category %>">
         </td>
         <td>
-          <%= submit_tag "Update", class: "button is-info is-outlined", onClick: "refreshPage()" %>
+          <%= submit_tag "Update Cadet", class: "button is-info is-outlined", onClick: "refreshPage()" %>
         </td>
       <% end %>
         <td>
           <%= form_tag "/sso/cadet-delete/" + c.id.to_s  do %>
-            <%= submit_tag "Delete", class: "button is-danger is-outlined", onClick: "refreshPage()" %>
+            <%= submit_tag "Delete Cadet", class: "button is-danger is-outlined", onClick: "refreshPage()" %>
           <% end %>
         </td>
       </tr>
