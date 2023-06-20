@@ -1,13 +1,22 @@
 
 <section class="hero is-primary">
   <div class="hero-body">
-    <p class="title">
-      <%= @competition.title %>
-    </p>
-    <p class="subtitle">
-      <%= @competition.competition_date %> <br>
-      <%= @competition.location %>
-    </p>
+    <div class="columns">
+      <div class="column is-three-quarters">
+        <p class="title">
+          <%= @competition.title %>
+        </p>
+        <p class="subtitle">
+          <%= @competition.competition_date %> <br>
+          <%= @competition.location %>
+        </p>
+      </div>
+      <div class="column">
+        <a class="button is-large is-responsive is-black" href="/sso/competitions">
+          &larr; Back
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 

@@ -1,13 +1,22 @@
 
 <section class="hero is-primary">
   <div class="hero-body">
-    <p class="title">
-      <%= @event.title %> <%= @event.age_range.display_name %>
-    </p>
-    <% curr = CadetRegistration.where(event: @event).joins(:cadet).where(cadet: { squadron_id: 1 }).count %>
-    <p class="subtitle">
-      Capacity: <%= @event.capacity %> / <%= curr %>
-    </p>
+    <div class="columns">
+      <div class="column is-three-quarters">
+        <p class="title">
+          <%= @event.title %> <%= @event.age_range.display_name %>
+        </p>
+        <% curr = CadetRegistration.where(event: @event).joins(:cadet).where(cadet: { squadron_id: 1 }).count %>
+        <p class="subtitle">
+          Capacity: <%= @event.capacity %> / <%= curr %>
+        </p>
+      </div>
+      <div class="column">
+        <a class="button is-large is-responsive is-black" href="/sso/competitions">
+          &larr; Back
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
